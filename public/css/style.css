@@ -1,31 +1,10 @@
 body {
-  padding-top: 70px;
+  padding-top: 60px;
   padding-bottom: 70px;
 }
 
 input.form-control {
   margin-bottom: 5px;
-}
-
-
-.blue-navbar {
-  background: #007bff;
-}
-
-.navbar-fixed-top {
-  height: 70px;
-  width: 100%;
-  background-color: #007bff;
-  position: fixed;
-  top:0;
-}
-
-.navbar-fixed-bottom {
-  height: 70px;
-  width: 100%;
-  background-color: #007bff;
-  position: fixed;
-  bottom: 0;
 }
 
 a:hover {
@@ -36,7 +15,7 @@ a:hover {
 }
 
 .text-padding-top {
-  padding-top: 10px;
+  padding-top: 8px;
 }
 
 .text-bold {
@@ -60,5 +39,31 @@ a:hover {
   padding: 15px 0 180px 0;
 }
 
+.full-width {
+  width: 100%;
+}
+
+.margin-top {
+  margin-top: 10px;
+}
+
+.row-in-navbar {
+  flex-grow: 1;
+}
+
+.color-black {
+  color: #000;
+}
+
+.header-padding-left {
+  padding-left: 5.8%;
+}
+
+.widget-images{
+  display: inline;
+  width: 85%;
+  z-index: 100;
+  position: relative;
+}
 
 
