@@ -9,18 +9,22 @@
   <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-  <nav class="navbar fixed-top navbar-dark bg-primary">
+  <nav class="navbar fixed-top navbar-light bg-light">
+    <div class="d-lg-none d-inline">
+      <a href="website-list.html" class="color-black">
+        <i class="fas fa-chevron-left fontawsome_icon"></i></a>
+    </div>
     <div class="row row-in-navbar">
-    <div class="col-4 navbar-item navbar-left">
-        <a href="website-list.html" class="text-white">
+    <div class="d-none d-lg-block col-4 navbar-item navbar-left">
+        <a href="website-list.html" class="color-black">
           <i class="fas fa-chevron-left fontawsome_icon"></i></a>
-        <a class="text-white navbar-brand text-bold text-padding-left" href="#">
+        <a class="color-black navbar-brand text-bold text-padding-left" href="#">
           Websites</a>
     </div>
     <div class="col-8">
-      <a class="text-white navbar-brand text-bold text-padding-left" href="#">
+      <a class="color-black navbar-brand text-bold" href="#">
         Edit Website</a>
-      <a href="website-list.html" class="text-white">
+      <a href="website-list.html" class="color-black">
         <span class="fas fa-check fontawsome-icon float-right text-padding-top"></span></a>
     </div>
   </div>
@@ -28,7 +32,7 @@
 
 <div class="container-fluid">
   <div class="row">
-  <div class="col-4">
+  <div class="d-none d-lg-block col-4">
     <ul class="list-group list-borderless">
       <li class="list-group-item list-borderless">
         <a href="page-list.html">Address Book App</a>
@@ -60,16 +64,16 @@
         <textarea id="web-description" class="form-control" rows="5" placeholder="Web Description"></textarea>
       </div>
     </form>
-    <a class="btn btn-danger btn-block" href="website-list.html">Delete</a>
+    <a class="btn btn-danger btn-block margin-top" href="website-list.html">Delete</a>
   </div>
   </div>
 </div>
 
-<nav class="navbar fixed-bottom navbar-dark bg-primary">
+<nav class="navbar fixed-bottom navbar-light bg-light">
   <div class="container-fluid">
     &nbsp;
-    <a href="profile.html" class="text-white">
-      <span class="fas fa-user fontawsome-icon"></span>
+    <a href="profile.html">
+      <span class="fas fa-user fontawsome-icon color-black"></span>
     </a>
   </div>
 </nav>
