@@ -2,5 +2,5 @@ I am Ziyan Huang, a graduate student at Northeastern University with no working 
 
 This repo is for web development.
 
-Related Links: Heroku url: webdev-ziyan.herokuapp.com
+My heroku link: webdev-ziyan.herokuapp.com
 
