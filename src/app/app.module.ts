@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app-routing.module';
@@ -20,6 +21,7 @@ import { PageNewComponent } from './views/page/page-new/page-new.component';
 import { WidgetListComponent } from './views/widget/widget-list/widget-list.component';
 import { WidgetChooserComponent } from './views/widget/widget-chooser/widget-chooser.component';
 import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.component';
+import { HomeComponent } from './views/home/home.component';
 
 @NgModule({
   declarations: [
@@ -36,10 +38,12 @@ import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.comp
     WidgetListComponent,
     WidgetChooserComponent,
     WidgetEditComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
   bootstrap: [AppComponent]

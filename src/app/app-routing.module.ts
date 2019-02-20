@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import {Routes, RouterModule} from '@angular/router';
+
+import {HomeComponent} from './views/home/home.component';
 import {LoginComponent} from './views/user/login/login.component';
 import {ProfileComponent} from './views/user/profile/profile.component';
 import {RegisterComponent} from './views/user/register/register.component';
@@ -16,6 +17,7 @@ import {WidgetChooserComponent} from './views/widget/widget-chooser/widget-choos
 import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.component';
 
 const appRoutes: Routes = [
+  { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'user/:uid', component: ProfileComponent},

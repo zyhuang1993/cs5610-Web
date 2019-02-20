@@ -1,1 +1,17 @@
-<h1>login</h1>>
+<div class="container">
+  <div *ngIf="errorFlag" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
+  <h1>
+    {{title}}
+  </h1>
+  <div>
+    <form>
+      <input type="text" class="form-control" placeholder="username"/>
+      <input type="password" class="form-control" placeholder="password"/>
+    </form>
+    <a class="btn btn-primary btn-block" href="profile.html">Login</a>
+    <a class="btn btn-success btn-block" href="register.html">Register</a>
+  </div>
+</div>
+
