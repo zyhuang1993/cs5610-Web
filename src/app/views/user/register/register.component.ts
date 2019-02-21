@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   firstName: string;
 
   errorFlag: boolean;
-  errorMsg = 'Sorry, passwords mis-matching';
+  errorMsg = 'Sorry, passwords mis-matching.';
 
   constructor(private router: Router, private userService: UserService) {
     this.title = 'Register';
@@ -27,13 +27,14 @@ export class RegisterComponent implements OnInit {
   register(verifiedPassword: string) {
     if (verifiedPassword === this.password) {
       this.errorFlag = false;
-      const registeredUser: User = new User(Math.random().toString(), this.username, this.password, this.firstName, this.lastName);
+      const registeredUser: User = new User(undefined, this.username, this.password, this.firstName, this.lastName);
       this.userService.createUser(registeredUser);
-      this.router.navigate(['profile', registeredUser.userId]);
+      this.router.navigate(['user', registeredUser.userId]);
     } else {
       this.errorFlag = true;
     }
   }
+
 
   ngOnInit() {
   }

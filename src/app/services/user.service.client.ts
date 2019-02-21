@@ -22,8 +22,8 @@ export class UserService {
   };
 
   createUser(user: any) {
-    user.userId = Math.random().toString();
-    this.users.push(new User(user.userId, user.username, user.password, user.firstName, user.lastName));
+    user.userId = this.randomID();
+    this.users.push(user);
   }
 
   findUserById(userId: string) {
@@ -49,6 +49,7 @@ export class UserService {
       if (this.users[i].userId === userId) {
         this.users[i].firstName = user.firstName;
         this.users[i].lastName = user.lastName;
+        return this.users[i];
       }
     }
   }
@@ -63,4 +64,9 @@ export class UserService {
     }
   }
 
+  private randomID(): string {
+    const num = Math.floor(Math.random() * 1000) + 1;
+    console.log(this.users);
+    return num.toString();
+  }
 }
