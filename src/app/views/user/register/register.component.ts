@@ -25,16 +25,19 @@ export class RegisterComponent implements OnInit {
   }
 
   register(verifiedPassword: string) {
-    if (verifiedPassword === this.password) {
-      this.errorFlag = false;
-      const registeredUser: User = new User(undefined, this.username, this.password, this.firstName, this.lastName);
-      this.userService.createUser(registeredUser);
-      this.router.navigate(['user', registeredUser.userId]);
+    if (!this.username || !this.password || !this.lastName || !this.firstName) {
+      alert('Please enter your register information');
     } else {
-      this.errorFlag = true;
+      if (verifiedPassword === this.password) {
+        this.errorFlag = false;
+        const registeredUser: User = new User(undefined, this.username, this.password, this.firstName, this.lastName);
+        this.userService.createUser(registeredUser);
+        this.router.navigate(['user', registeredUser.userId]);
+      } else {
+        this.errorFlag = true;
+      }
     }
   }
-
 
   ngOnInit() {
   }

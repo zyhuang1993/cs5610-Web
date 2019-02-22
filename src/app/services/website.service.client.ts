@@ -7,9 +7,9 @@ export class WebsiteService {
   websites: Website[] = [
     { websiteId: '123', name: 'Facebook', developerId: '456', description: 'Lorem' },
     { websiteId: '234', name: 'Tweeter', developerId: '456', description: 'Lorem' },
-    { websiteId: '456', name: 'Gizmodo', developerId: '456', description: 'Lorem' },
+    { websiteId: '456', name: 'Gizmodo', developerId: '234', description: 'Lorem' },
     { websiteId: '890', name: 'Go', developerId: '123', description: 'Lorem' },
-    { websiteId: '567', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem' },
+    { websiteId: '567', name: 'Tic Tac Toe', developerId: '345', description: 'Lorem' },
     { websiteId: '678', name: 'Checkers', developerId: '123', description: 'Lorem' },
     { websiteId: '789', name: 'Chess', developerId: '234', description: 'Lorem' }
   ];
@@ -25,8 +25,9 @@ export class WebsiteService {
   };
 
   createWebsite(userId, website) {
-    website.websiteId = (new Date()).getTime() + '';
-    this.websites.push(new Website(website.websiteId, website.name, website.developerId, website.description));
+    website.websiteId = this.randomID();
+    this.websites.push(website);
+    console.log(this.websites);
   }
 
   findWebsitesByUser(userId: string) {
@@ -59,4 +60,11 @@ export class WebsiteService {
       }
     }
   }
+
+  private randomID(): string {
+    const num = Math.floor(Math.random() * 1000) + 1;
+    return num.toString();
+  }
+
+
 }

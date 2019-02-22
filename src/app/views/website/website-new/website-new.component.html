@@ -1,3 +1,53 @@
-<p>
-  website-new works!
-</p>
+<nav class="navbar fixed-top navbar-light bg-light">
+  <div class="d-lg-none d-inline margin-right">
+    <a href="website-list.html">
+      <span class="fas fa-chevron-left color-black"></span></a>
+  </div>
+  <div class="row row-in-navbar">
+    <div class="d-none d-lg-block col-4 navbar-item navbar-left">
+      <a class="check" (click)="backToWebsites()">
+        <i class="fas fa-chevron-left fontawsome_icon color-black"></i></a>
+      <a class="navbar-text navbar-brand text-bold text-padding-left color-black" href="#">
+        Websites</a>
+    </div>
+    <div class="col-8">
+      <a class="color-black navbar-text navbar-brand text-bold" href="#">
+        New Website</a>
+      <a (click)="createNewWeb()" class="check">
+        <span class="fas fa-check fontawsome-icon float-right text-padding-top color-black"></span></a>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-4">
+      <ul class="list-group list-borderless">
+        <li class="list-group-item list-borderless" *ngFor="let website of websites">
+          <a routerLink="/user/{{userId}}/website/{{website.websiteId}}/page">{{website.name}}</a>
+          <a routerLink="/user/{{userId}}/website/{{website.websiteId}}"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-8">
+        <div class="text-padding-top">
+          <label for="website-name" class="text-bold">Name</label>
+          <input id="website-name" type="text" class="form-control" placeholder="Name" [(ngModel)]="name"/>
+        </div>
+        <div class="text-padding-top">
+          <label for="web-description" class="text-bold">Description</label>
+          <textarea id="web-description" class="form-control" rows="5" placeholder="Description" [(ngModel)]="description"></textarea>
+        </div>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-light">
+  <div class="container-fluid">
+    &nbsp;
+    <a (click)="backToProfile()" class="check">
+      <span class="fas fa-user fontawsome-icon color-black"></span>
+    </a>
+  </div>
+</nav>
+

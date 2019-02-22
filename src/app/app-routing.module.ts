@@ -22,14 +22,14 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'user/:userId', component: ProfileComponent},
   { path: 'user/:userId/website', component: WebsiteListComponent},
-  { path: 'user/:uid/website/new', component: WebsiteNewComponent},
-  { path: 'user/:uid/website/:wid', component: WebsiteEditComponent},
-  { path: 'user/:uid/website/:wid/page', component: PageListComponent},
-  { path: 'user/:uid/website/:wid/page/new', component: PageNewComponent},
-  { path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
-  { path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
-  { path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
-  { path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent}
+  { path: 'user/:userId/website/new', component: WebsiteNewComponent},
+  { path: 'user/:userId/website/:websiteId', component: WebsiteEditComponent},
+  { path: 'user/:userId/website/:websiteId/page', component: PageListComponent},
+  { path: 'user/:userId/website/:websiteId/page/new', component: PageNewComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId', component: PageEditComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget', component: WidgetListComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new', component: WidgetChooserComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:wigdetId', component: WidgetEditComponent}
 ];
 
 @NgModule({

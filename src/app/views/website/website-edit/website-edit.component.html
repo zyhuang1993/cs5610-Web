@@ -1,3 +1,54 @@
-<p>
-  website-edit works!
-</p>
+<nav class="navbar navbar-light bg-light fixed-top">
+  <div class="d-lg-none d-inline margin-right">
+    <a (click)="backToWebsites()" class="check color-black">
+      <span class="fas fa-chevron-left fontawsome_icon"></span></a>
+  </div>
+  <div class="row row-in-navbar">
+    <div class="d-none d-lg-block col-4 navbar-item navbar-left">
+      <a (click)="backToWebsites()" class="check color-black">
+        <span class="fas fa-chevron-left fontawsome_icon"></span></a>
+      <a class="color-black navbar-text navbar-brand text-bold text-padding-left" href="#">
+        Websites</a>
+    </div>
+    <div class="col-8">
+      <a class="navbar-text color-black navbar-brand text-bold" href="#">
+        Edit Website</a>
+      <a (click)="updateCurWebsite()" class="check color-black">
+        <span class="fas fa-check float-right text-padding-top"></span></a>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-4">
+      <ul class="list-group list-borderless">
+        <li class="list-group-item list-borderless" *ngFor="let website of websites">
+          <a routerLink="user/{{userId}}/website/{{website.websiteId}}/page">{{website.name}}</a>
+          <a routerLink="user/{{userId}}/website/{{website.websiteId}}"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-8">
+        <div class="text-padding-top">
+          <label for="website-name" class="text-bold">Website Name</label>
+          <input id="website-name" type="text" class="form-control" placeholder="Website Name" [(ngModel)]="name"/>
+        </div>
+        <div class="text-padding-top">
+          <label for="web-description" class="text-bold">Description</label>
+          <textarea id="web-description" class="form-control" rows="5" placeholder="Web Description" [(ngModel)]="description"></textarea>
+        </div>
+      <a (click)="deleteWeb()" class="btn btn-danger btn-block margin-top">Delete</a>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-light">
+  <div class="container-fluid">
+    &nbsp;
+    <a (click)="backToProfile()" class="check">
+      <span class="fas fa-user fontawsome-icon color-black"></span>
+    </a>
+  </div>
+</nav>

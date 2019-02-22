@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 import {User} from '../../../models/user.model.client';
 import {UserService} from '../../../services/user.service.client';
 
@@ -9,18 +9,20 @@ import {UserService} from '../../../services/user.service.client';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
   title: string;
   user: User;
-  constructor(private userService: UserService, private route: ActivatedRoute) {
-    this.title = 'Profile';
+  constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.title = 'profile';
   }
 
-  updateUser(user) {
-    this.user = this.userService.updateUser(this.user.userId, user);
+  updateUser() {
+    this.userService.updateUser(this.user.userId, this.user);
+    this.router.navigate(['user', this.user.userId]);
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.activatedRoute.params.subscribe(params => {
       this.user = this.userService.findUserById(params.userId);
     });
   }

@@ -11,6 +11,11 @@ a:hover {
   text-decoration: none;
 }
 
+.check:hover {
+  cursor: pointer;
+  color: darkgrey;
+}
+
 a:not([href]):not([tabindex]) {
   color: #fff;
 }

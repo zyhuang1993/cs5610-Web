@@ -4,21 +4,31 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class PageService {
   pages: Page[] = [
-    { pageId: '321', name: 'Post 1', websiteId: '456', description: 'Lorem' },
-    { pageId: '432', name: 'Post 2', websiteId: '456', description: 'Lorem' },
-    { pageId: '543', name: 'Post 3', websiteId: '456', description: 'Lorem' }
+    { pageId: '345', name: 'Post 1', websiteId: '123', description: 'Lorem' },
+    { pageId: '456', name: 'Post 2', websiteId: '234', description: 'Lorem' },
+    { pageId: '567', name: 'Post 3', websiteId: '345', description: 'Lorem' },
+    { pageId: '678', name: 'Post 4', websiteId: '456', description: 'Lorem' },
+    { pageId: '789', name: 'Post 5', websiteId: '567', description: 'Lorem' },
+    { pageId: '890', name: 'Post 6', websiteId: '678', description: 'Lorem' },
+    { pageId: '901', name: 'Post 6', websiteId: '789', description: 'Lorem' }
   ];
 
   constructor() {}
 
-  api = {};
+  api = {
+    createPage: this.createPage,
+    findPagesByWebsiteId: this.findPagesByWebsiteId,
+    findPageById: this.findPageById,
+    updatePage: this.updatePage,
+    deletePage: this.deletePage
+  };
 
   createPage(websiteId: string, page: Page) {
-    page.pageId = (new Date()).getTime() + '';
-    this.pages.push(new Page(page.pageId, page.name, websiteId, page.description));
+    page.pageId = this.randomID();
+    this.pages.push(page);
   }
 
-  findPageByWebsiteId(websiteId) {
+  findPagesByWebsiteId(websiteId) {
     return this.pages.filter((page) => {
       return page.websiteId === websiteId;
     });
@@ -47,5 +57,9 @@ export class PageService {
         break;
       }
     }
+  }
+  private randomID(): string {
+    const num = Math.floor(Math.random() * 1000) + 1;
+    return num.toString();
   }
 }

@@ -71,14 +71,14 @@ var appRoutes = [
     { path: 'register', component: _views_user_register_register_component__WEBPACK_IMPORTED_MODULE_6__["RegisterComponent"] },
     { path: 'user/:userId', component: _views_user_profile_profile_component__WEBPACK_IMPORTED_MODULE_5__["ProfileComponent"] },
     { path: 'user/:userId/website', component: _views_website_website_list_website_list_component__WEBPACK_IMPORTED_MODULE_8__["WebsiteListComponent"] },
-    { path: 'user/:uid/website/new', component: _views_website_website_new_website_new_component__WEBPACK_IMPORTED_MODULE_7__["WebsiteNewComponent"] },
-    { path: 'user/:uid/website/:wid', component: _views_website_website_edit_website_edit_component__WEBPACK_IMPORTED_MODULE_9__["WebsiteEditComponent"] },
-    { path: 'user/:uid/website/:wid/page', component: _views_page_page_list_page_list_component__WEBPACK_IMPORTED_MODULE_11__["PageListComponent"] },
-    { path: 'user/:uid/website/:wid/page/new', component: _views_page_page_new_page_new_component__WEBPACK_IMPORTED_MODULE_10__["PageNewComponent"] },
-    { path: 'user/:uid/website/:wid/page/:pid', component: _views_page_page_edit_page_edit_component__WEBPACK_IMPORTED_MODULE_12__["PageEditComponent"] },
-    { path: 'user/:uid/website/:wid/page/:pid/widget', component: _views_widget_widget_list_widget_list_component__WEBPACK_IMPORTED_MODULE_13__["WidgetListComponent"] },
-    { path: 'user/:uid/website/:wid/page/:pid/widget/new', component: _views_widget_widget_chooser_widget_chooser_component__WEBPACK_IMPORTED_MODULE_14__["WidgetChooserComponent"] },
-    { path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: _views_widget_widget_edit_widget_edit_component__WEBPACK_IMPORTED_MODULE_15__["WidgetEditComponent"] }
+    { path: 'user/:userId/website/new', component: _views_website_website_new_website_new_component__WEBPACK_IMPORTED_MODULE_7__["WebsiteNewComponent"] },
+    { path: 'user/:userId/website/:websiteId', component: _views_website_website_edit_website_edit_component__WEBPACK_IMPORTED_MODULE_9__["WebsiteEditComponent"] },
+    { path: 'user/:userId/website/:websiteId/page', component: _views_page_page_list_page_list_component__WEBPACK_IMPORTED_MODULE_11__["PageListComponent"] },
+    { path: 'user/:userId/website/:websiteId/page/new', component: _views_page_page_new_page_new_component__WEBPACK_IMPORTED_MODULE_10__["PageNewComponent"] },
+    { path: 'user/:userId/website/:websiteId/page/:pageId', component: _views_page_page_edit_page_edit_component__WEBPACK_IMPORTED_MODULE_12__["PageEditComponent"] },
+    { path: 'user/:userId/website/:websiteId/page/:pageId/widget', component: _views_widget_widget_list_widget_list_component__WEBPACK_IMPORTED_MODULE_13__["WidgetListComponent"] },
+    { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new', component: _views_widget_widget_chooser_widget_chooser_component__WEBPACK_IMPORTED_MODULE_14__["WidgetChooserComponent"] },
+    { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:wigdetId', component: _views_widget_widget_edit_widget_edit_component__WEBPACK_IMPORTED_MODULE_15__["WidgetEditComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -104,7 +104,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -367,17 +367,27 @@ __webpack_require__.r(__webpack_exports__);
 var PageService = /** @class */ (function () {
     function PageService() {
         this.pages = [
-            { pageId: '321', name: 'Post 1', websiteId: '456', description: 'Lorem' },
-            { pageId: '432', name: 'Post 2', websiteId: '456', description: 'Lorem' },
-            { pageId: '543', name: 'Post 3', websiteId: '456', description: 'Lorem' }
+            { pageId: '345', name: 'Post 1', websiteId: '123', description: 'Lorem' },
+            { pageId: '456', name: 'Post 2', websiteId: '234', description: 'Lorem' },
+            { pageId: '567', name: 'Post 3', websiteId: '345', description: 'Lorem' },
+            { pageId: '678', name: 'Post 4', websiteId: '456', description: 'Lorem' },
+            { pageId: '789', name: 'Post 5', websiteId: '567', description: 'Lorem' },
+            { pageId: '890', name: 'Post 6', websiteId: '678', description: 'Lorem' },
+            { pageId: '901', name: 'Post 6', websiteId: '789', description: 'Lorem' }
         ];
-        this.api = {};
+        this.api = {
+            createPage: this.createPage,
+            findPagesByWebsiteId: this.findPagesByWebsiteId,
+            findPageById: this.findPageById,
+            updatePage: this.updatePage,
+            deletePage: this.deletePage
+        };
     }
     PageService.prototype.createPage = function (websiteId, page) {
         page.pageId = (new Date()).getTime() + '';
         this.pages.push(new _models_page_model_client__WEBPACK_IMPORTED_MODULE_1__["Page"](page.pageId, page.name, websiteId, page.description));
     };
-    PageService.prototype.findPageByWebsiteId = function (websiteId) {
+    PageService.prototype.findPagesByWebsiteId = function (websiteId) {
         return this.pages.filter(function (page) {
             return page.websiteId === websiteId;
         });
@@ -470,7 +480,6 @@ var UserService = /** @class */ (function () {
             if (this.users[i].userId === userId) {
                 this.users[i].firstName = user.firstName;
                 this.users[i].lastName = user.lastName;
-                return this.users[i];
             }
         }
     };
@@ -510,9 +519,7 @@ var UserService = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebsiteService", function() { return WebsiteService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _models_website_model_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/website.model.client */ "./src/app/models/website.model.client.ts");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 
 
 var WebsiteService = /** @class */ (function () {
@@ -520,9 +527,9 @@ var WebsiteService = /** @class */ (function () {
         this.websites = [
             { websiteId: '123', name: 'Facebook', developerId: '456', description: 'Lorem' },
             { websiteId: '234', name: 'Tweeter', developerId: '456', description: 'Lorem' },
-            { websiteId: '456', name: 'Gizmodo', developerId: '456', description: 'Lorem' },
+            { websiteId: '456', name: 'Gizmodo', developerId: '234', description: 'Lorem' },
             { websiteId: '890', name: 'Go', developerId: '123', description: 'Lorem' },
-            { websiteId: '567', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem' },
+            { websiteId: '567', name: 'Tic Tac Toe', developerId: '345', description: 'Lorem' },
             { websiteId: '678', name: 'Checkers', developerId: '123', description: 'Lorem' },
             { websiteId: '789', name: 'Chess', developerId: '234', description: 'Lorem' }
         ];
@@ -535,8 +542,9 @@ var WebsiteService = /** @class */ (function () {
         };
     }
     WebsiteService.prototype.createWebsite = function (userId, website) {
-        website.websiteId = (new Date()).getTime() + '';
-        this.websites.push(new _models_website_model_client__WEBPACK_IMPORTED_MODULE_1__["Website"](website.websiteId, website.name, website.developerId, website.description));
+        website.websiteId = this.randomID();
+        this.websites.push(website);
+        console.log(this.websites);
     };
     WebsiteService.prototype.findWebsitesByUser = function (userId) {
         return this.websites.filter(function (website) {
@@ -565,8 +573,12 @@ var WebsiteService = /** @class */ (function () {
             }
         }
     };
+    WebsiteService.prototype.randomID = function () {
+        var num = Math.floor(Math.random() * 1000) + 1;
+        return num.toString();
+    };
     WebsiteService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])(),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], WebsiteService);
     return WebsiteService;
@@ -675,7 +687,7 @@ var WidgetService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy9ob21lL2hvbWUuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL2hvbWUvaG9tZS5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -731,7 +743,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy9wYWdlL3BhZ2UtZWRpdC9wYWdlLWVkaXQuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3BhZ2UvcGFnZS1lZGl0L3BhZ2UtZWRpdC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -787,7 +799,7 @@ var PageEditComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy9wYWdlL3BhZ2UtbGlzdC9wYWdlLWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3BhZ2UvcGFnZS1saXN0L3BhZ2UtbGlzdC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -798,7 +810,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  page-list works!\n</p>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light fixed-top\">\n  <div class=\"float-left\">\n    <a (click)=\"backToWebsites()\" class=\"check\"><span class=\"color-black fas fa-chevron-left fontawsome_icon\"></span></a>\n    <a class=\"navbar-text navbar-brand text-bold text-padding-left\" href=\"#\">Pages</a>\n  </div>\n  <div class=\"float-right\">\n    <a routerLink=\"user/{{userId}}/website/{{websiteId}}/page/new\"><span class=\"color-black fas fa-plus fontawsome_icon\"></span></a>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <ul class=\"list-group list-borderless\">\n    <li class=\"list-group-item list-borderless\" *ngFor=\"let page of pages\">\n      <a routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{page.pageId}}/widget\">{{page.name}}</a>\n      <a routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{page.pageId}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n    </li>\n  </ul>\n</div>\n<nav class=\"navbar navbar-default navbar-light bg-light fixed-bottom\">\n  <div class=\"float-left\"> </div>\n  <div class=\"float-right\">\n    <a href=\"profile.html\"><span class=\"fas fa-user fontawsome_icon color-black\"></span></a>\n  </div>\n\n</nav>\n\n"
 
 /***/ }),
 
@@ -814,12 +826,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageListComponent", function() { return PageListComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_page_service_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../services/page.service.client */ "./src/app/services/page.service.client.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
 
 
 var PageListComponent = /** @class */ (function () {
-    function PageListComponent() {
+    function PageListComponent(router, pageService, activatedRoute) {
+        this.router = router;
+        this.pageService = pageService;
+        this.activatedRoute = activatedRoute;
+        this.pages = [];
     }
     PageListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activatedRoute.params.subscribe(function (params) {
+            _this.userId = params.userId;
+            _this.websiteId = params.websiteId;
+        });
+        this.pages = this.pageService.findPagesByWebsiteId(this.websiteId);
+    };
+    PageListComponent.prototype.backToProfile = function () {
+        this.router.navigate(['user', this.userId]);
+    };
+    PageListComponent.prototype.backToWebsites = function () {
+        this.router.navigate(['user/' + this.userId + '/website']);
     };
     PageListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -827,7 +859,7 @@ var PageListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./page-list.component.html */ "./src/app/views/page/page-list/page-list.component.html"),
             styles: [__webpack_require__(/*! ./page-list.component.css */ "./src/app/views/page/page-list/page-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_page_service_client__WEBPACK_IMPORTED_MODULE_2__["PageService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
     ], PageListComponent);
     return PageListComponent;
 }());
@@ -843,7 +875,7 @@ var PageListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy9wYWdlL3BhZ2UtbmV3L3BhZ2UtbmV3LmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3BhZ2UvcGFnZS1uZXcvcGFnZS1uZXcuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -899,7 +931,7 @@ var PageNewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy91c2VyL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3VzZXIvbG9naW4vbG9naW4uY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -910,7 +942,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div *ngIf=\"errorFlag\" class=\"alert alert-danger\">\n    {{errorMsg}}\n  </div>\n  <h1>\n    {{title}}\n  </h1>\n  <div>\n    <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\" class=\"form-control\" placeholder=\"username\" name=\"username\"\n             ngModel required #username=\"ngModel\"/>\n      <input type=\"password\" class=\"form-control\" placeholder=\"password\" name=\"password\"\n             ngModel required #password=\"ngModel\"/>\n      <span class=\"help-block\" *ngIf=\"(!username.valid && username.touched) || (!password.valid && password.touched)\">\n        Please enter username\n      </span>\n      <button class=\"btn btn-primary btn-block\" type=\"submit\" [disabled]=\"!f.valid\">Login</button>\n      <a routerLink=\"/register\" class=\"btn btn-success btn-block\">Register</a>\n      {{f.valid}}\n    </form>\n  </div>\n</div>\n\n"
+module.exports = "<div class=\"container\">\n  <div *ngIf=\"errorFlag\" class=\"alert alert-danger\">\n    {{errorMsg}}\n  </div>\n  <h1>\n    {{title}}\n  </h1>\n  <div>\n    <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n      <input type=\"text\" class=\"form-control\" placeholder=\"username\" name=\"username\"\n             ngModel required #username=\"ngModel\"/>\n      <input type=\"password\" class=\"form-control\" placeholder=\"password\" name=\"password\"\n             ngModel required #password=\"ngModel\"/>\n      <button class=\"btn btn-primary btn-block\" type=\"submit\" [disabled]=\"!f.valid\">Login</button>\n      <a routerLink=\"/register\" class=\"btn btn-success btn-block\">Register</a>\n    </form>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -947,9 +979,9 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.login = function () {
         this.username = this.loginForm.value.username;
         this.password = this.loginForm.value.password;
-        alert(this.username);
         var user = this.userService.findUserByCredentials(this.username, this.password);
         if (user) {
+            alert(this.username);
             this.router.navigate(['user', user.userId]);
         }
         else {
@@ -982,7 +1014,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy91c2VyL3Byb2ZpbGUvcHJvZmlsZS5jb21wb25lbnQuY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3VzZXIvcHJvZmlsZS9wcm9maWxlLmNvbXBvbmVudC5jc3MifQ== */"
 
 /***/ }),
 
@@ -993,7 +1025,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar fixed-top navbar-light bg-light\">\n  <a class=\"navbar-text color-black navbar-brand text-bold\" href=\"#\">\n    {{title}}\n  </a>\n</nav>\n<div class=\"container container-padding\">\n  <form>\n    <div class=\"form-group\">\n      <label for=\"username\"><strong>Username</strong></label>\n      <input id=\"username\" class=\"form-control\" type=\"text\" placeholder=\"jannunzi\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"email\"><strong>Email</strong></label>\n      <input id=\"email\" class=\"form-control\" type=\"email\" placeholder=\"jannunzi@gmail.com\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\"><strong>First Name</strong></label>\n      <input id=\"first-name\" class=\"form-control\" type=\"text\" placeholder=\"Jose\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\"><strong>Last Name</strong></label>\n      <input id=\"last-name\" class=\"form-control\" type=\"text\" placeholder=\"Annunziato\"/>\n    </div>\n  </form>\n  <a class=\"btn btn-primary btn-block\" href=\"website-list.html\">Websites</a>\n  <a class=\"btn btn-danger btn-block\" href=\"login.html\">Logout</a>\n</div>\n<nav class=\"navbar navbar-fixed-bottom blue-navbar\">\n</nav>\n"
+module.exports = "<nav class=\"navbar fixed-top navbar-light bg-light\">\n  <div class=\"navbar-text color-black navbar-brand text-bold\">\n    {{user.username}}'s {{title}}\n  </div>\n  <div  (click)=\"updateUser()\" class=\"check float-right color-white list-borderless\">\n    <span class=\"fas fa-check fontawsome_icon\"></span>\n  </div>\n</nav>\n<div class=\"container container-padding\">\n    <div class=\"form-group\">\n      <label for=\"username\"><strong>Username</strong></label>\n      <input id=\"username\" class=\"form-control\" type=\"text\" placeholder=\"change your username\" [(ngModel)]=\"user.username\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"password\"><strong>Password</strong></label>\n      <input id=\"password\" class=\"form-control\" type=\"password\" placeholder=\"change your password\" [(ngModel)]=\"user.password\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\"><strong>First Name</strong></label>\n      <input id=\"first-name\" class=\"form-control\" type=\"text\" placeholder=\"change your first name\" [(ngModel)]=\"user.firstName\"/>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\"><strong>Last Name</strong></label>\n      <input id=\"last-name\" class=\"form-control\" type=\"text\" placeholder=\"change your last name\" [(ngModel)]=\"user.lastName\"/>\n    </div>\n\n    <a routerLink=\"/user/{{user.userId}}/website\" class=\"btn btn-primary btn-block\">Websites</a>\n    <a class=\"btn btn-danger btn-block\" routerLink=\"/login\">Logout</a>\n</div>\n<nav class=\"navbar navbar-fixed-bottom blue-navbar\">\n</nav>\n\n"
 
 /***/ }),
 
@@ -1016,17 +1048,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent(userService, route) {
+    function ProfileComponent(userService, activatedRoute, router) {
         this.userService = userService;
-        this.route = route;
-        this.title = 'Profile';
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.title = 'profile';
     }
-    ProfileComponent.prototype.updateUser = function (user) {
-        this.user = this.userService.updateUser(this.user.userId, user);
+    ProfileComponent.prototype.updateUser = function () {
+        this.userService.updateUser(this.user.userId, this.user);
+        this.router.navigate(['user', this.user.userId]);
     };
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.params.subscribe(function (params) {
+        this.activatedRoute.params.subscribe(function (params) {
             _this.user = _this.userService.findUserById(params.userId);
         });
     };
@@ -1036,7 +1070,7 @@ var ProfileComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/views/user/profile/profile.component.html"),
             styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/views/user/profile/profile.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service_client__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service_client__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], ProfileComponent);
     return ProfileComponent;
 }());
@@ -1052,7 +1086,7 @@ var ProfileComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy91c2VyL3JlZ2lzdGVyL3JlZ2lzdGVyLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3VzZXIvcmVnaXN0ZXIvcmVnaXN0ZXIuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -1096,14 +1130,19 @@ var RegisterComponent = /** @class */ (function () {
         this.errorFlag = false;
     }
     RegisterComponent.prototype.register = function (verifiedPassword) {
-        if (verifiedPassword === this.password) {
-            this.errorFlag = false;
-            var registeredUser = new _models_user_model_client__WEBPACK_IMPORTED_MODULE_2__["User"](undefined, this.username, this.password, this.firstName, this.lastName);
-            this.userService.createUser(registeredUser);
-            this.router.navigate(['user', registeredUser.userId]);
+        if (!this.username || !this.password || !this.lastName || !this.firstName) {
+            alert('Please enter your register information');
         }
         else {
-            this.errorFlag = true;
+            if (verifiedPassword === this.password) {
+                this.errorFlag = false;
+                var registeredUser = new _models_user_model_client__WEBPACK_IMPORTED_MODULE_2__["User"](undefined, this.username, this.password, this.firstName, this.lastName);
+                this.userService.createUser(registeredUser);
+                this.router.navigate(['user', registeredUser.userId]);
+            }
+            else {
+                this.errorFlag = true;
+            }
         }
     };
     RegisterComponent.prototype.ngOnInit = function () {
@@ -1130,7 +1169,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy93ZWJzaXRlL3dlYnNpdGUtZWRpdC93ZWJzaXRlLWVkaXQuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3dlYnNpdGUvd2Vic2l0ZS1lZGl0L3dlYnNpdGUtZWRpdC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -1141,7 +1180,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  website-edit works!\n</p>\n"
+module.exports = "<nav class=\"navbar navbar-light bg-light fixed-top\">\n  <div class=\"d-lg-none d-inline margin-right\">\n    <a (click)=\"backToWebsites()\" class=\"check color-black\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span></a>\n  </div>\n  <div class=\"row row-in-navbar\">\n    <div class=\"d-none d-lg-block col-4 navbar-item navbar-left\">\n      <a (click)=\"backToWebsites()\" class=\"check color-black\">\n        <span class=\"fas fa-chevron-left fontawsome_icon\"></span></a>\n      <a class=\"color-black navbar-text navbar-brand text-bold text-padding-left\" href=\"#\">\n        Websites</a>\n    </div>\n    <div class=\"col-8\">\n      <a class=\"navbar-text color-black navbar-brand text-bold\" href=\"#\">\n        Edit Website</a>\n      <a (click)=\"updateCurWebsite()\" class=\"check color-black\">\n        <span class=\"fas fa-check float-right text-padding-top\"></span></a>\n    </div>\n  </div>\n</nav>\n\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"d-none d-lg-block col-4\">\n      <ul class=\"list-group list-borderless\">\n        <li class=\"list-group-item list-borderless\" *ngFor=\"let website of websites\">\n          <a routerLink=\"user/{{userId}}/website/{{website.websiteId}}/page\">{{website.name}}</a>\n          <a routerLink=\"user/{{userId}}/website/{{website.websiteId}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"col-8\">\n        <div class=\"text-padding-top\">\n          <label for=\"website-name\" class=\"text-bold\">Website Name</label>\n          <input id=\"website-name\" type=\"text\" class=\"form-control\" placeholder=\"Website Name\" [(ngModel)]=\"name\"/>\n        </div>\n        <div class=\"text-padding-top\">\n          <label for=\"web-description\" class=\"text-bold\">Description</label>\n          <textarea id=\"web-description\" class=\"form-control\" rows=\"5\" placeholder=\"Web Description\" [(ngModel)]=\"description\"></textarea>\n        </div>\n      <a (click)=\"deleteWeb()\" class=\"btn btn-danger btn-block margin-top\">Delete</a>\n    </div>\n  </div>\n</div>\n\n<nav class=\"navbar fixed-bottom navbar-light bg-light\">\n  <div class=\"container-fluid\">\n    &nbsp;\n    <a (click)=\"backToProfile()\" class=\"check\">\n      <span class=\"fas fa-user fontawsome-icon color-black\"></span>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1157,12 +1196,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebsiteEditComponent", function() { return WebsiteEditComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _models_website_model_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../models/website.model.client */ "./src/app/models/website.model.client.ts");
+/* harmony import */ var _services_website_service_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/website.service.client */ "./src/app/services/website.service.client.ts");
+
+
+
 
 
 var WebsiteEditComponent = /** @class */ (function () {
-    function WebsiteEditComponent() {
+    function WebsiteEditComponent(activatedRouter, websiteService, router) {
+        this.activatedRouter = activatedRouter;
+        this.websiteService = websiteService;
+        this.router = router;
+        this.websites = [];
     }
     WebsiteEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activatedRouter.params.subscribe(function (params) {
+            _this.userId = params.userId;
+            _this.websiteId = params.websiteId;
+        });
+        this.websites = this.websiteService.findWebsitesByUser(this.userId);
+        var curWebsite = this.websiteService.findWebsiteById(this.websiteId);
+        this.name = curWebsite.name;
+        this.description = curWebsite.description;
+    };
+    WebsiteEditComponent.prototype.updateCurWebsite = function () {
+        this.websiteService.updateWebsite(this.websiteId, new _models_website_model_client__WEBPACK_IMPORTED_MODULE_3__["Website"](this.websiteId, this.name, this.userId, this.description));
+        this.backToWebsites();
+    };
+    WebsiteEditComponent.prototype.backToWebsites = function () {
+        this.router.navigate(['user/' + this.userId + '/website']);
+    };
+    WebsiteEditComponent.prototype.backToProfile = function () {
+        this.router.navigate(['user/', this.userId]);
+    };
+    WebsiteEditComponent.prototype.deleteWeb = function () {
+        this.websiteService.deleteWebsite(this.websiteId);
+        this.backToWebsites();
     };
     WebsiteEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1170,7 +1242,7 @@ var WebsiteEditComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./website-edit.component.html */ "./src/app/views/website/website-edit/website-edit.component.html"),
             styles: [__webpack_require__(/*! ./website-edit.component.css */ "./src/app/views/website/website-edit/website-edit.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _services_website_service_client__WEBPACK_IMPORTED_MODULE_4__["WebsiteService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], WebsiteEditComponent);
     return WebsiteEditComponent;
 }());
@@ -1186,7 +1258,7 @@ var WebsiteEditComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy93ZWJzaXRlL3dlYnNpdGUtbGlzdC93ZWJzaXRlLWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3dlYnNpdGUvd2Vic2l0ZS1saXN0L3dlYnNpdGUtbGlzdC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -1197,7 +1269,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  website-list works!\n</p>\n"
+module.exports = "<nav class=\"navbar fixed-top navbar-light bg-light\">\n  <div class=\"container-fluid color-black\">\n      <span>\n        <a href=\"profile.html\">\n          <span class=\"fas fa-chevron-left fontawsome_icon text-padding-top color-black\"></span>\n        </a>\n      <a class=\"navbar-text navbar-brand text-bold text-padding-left\" href=\"#\">\n        Websites\n      </a>\n      </span>\n    <a routerLink=\"/user/{{userId}}/website/new\">\n      <span class=\"fas fa-plus fontawsome-icon color-black\"></span>\n    </a>\n  </div>\n</nav>\n<div class=\"container container-padding\">\n  <ul class=\"list-group list-borderless\">\n    <li class=\"list-group-item list-borderless\" *ngFor=\"let website of websites\">\n      <a routerLink=\"/user/{{userId}}/website/{{website.websiteId}}/page\">{{website.name}}</a>\n      <a routerLink=\"/user/{{userId}}/website/{{website.websiteId}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n    </li>\n  </ul>\n</div>\n<nav class=\"navbar fixed-bottom navbar-light bg-light\">\n  <div class=\"container-fluid\">\n    &nbsp;\n    <a class=\"check\" (click)=\"backToProfile()\">\n      <span class=\"fas fa-user fontawsome-icon color-black\"></span>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1213,12 +1285,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebsiteListComponent", function() { return WebsiteListComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_website_service_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../services/website.service.client */ "./src/app/services/website.service.client.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
 
 
 var WebsiteListComponent = /** @class */ (function () {
-    function WebsiteListComponent() {
+    function WebsiteListComponent(websiteService, activateRoute, router) {
+        this.websiteService = websiteService;
+        this.activateRoute = activateRoute;
+        this.router = router;
+        this.websites = [];
     }
     WebsiteListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activateRoute.params.subscribe(function (params) { return _this.userId = params.userId; });
+        this.websites = this.websiteService.findWebsitesByUser(this.userId);
+        alert(this.userId);
+    };
+    WebsiteListComponent.prototype.backToProfile = function () {
+        this.router.navigate(['user', this.userId]);
     };
     WebsiteListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1226,7 +1313,7 @@ var WebsiteListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./website-list.component.html */ "./src/app/views/website/website-list/website-list.component.html"),
             styles: [__webpack_require__(/*! ./website-list.component.css */ "./src/app/views/website/website-list/website-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_website_service_client__WEBPACK_IMPORTED_MODULE_2__["WebsiteService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], WebsiteListComponent);
     return WebsiteListComponent;
 }());
@@ -1242,7 +1329,7 @@ var WebsiteListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy93ZWJzaXRlL3dlYnNpdGUtbmV3L3dlYnNpdGUtbmV3LmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3dlYnNpdGUvd2Vic2l0ZS1uZXcvd2Vic2l0ZS1uZXcuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -1253,7 +1340,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  website-new works!\n</p>\n"
+module.exports = "<nav class=\"navbar fixed-top navbar-light bg-light\">\n  <div class=\"d-lg-none d-inline margin-right\">\n    <a href=\"website-list.html\">\n      <span class=\"fas fa-chevron-left color-black\"></span></a>\n  </div>\n  <div class=\"row row-in-navbar\">\n    <div class=\"d-none d-lg-block col-4 navbar-item navbar-left\">\n      <a class=\"check\" (click)=\"backToWebsites()\">\n        <i class=\"fas fa-chevron-left fontawsome_icon color-black\"></i></a>\n      <a class=\"navbar-text navbar-brand text-bold text-padding-left color-black\" href=\"#\">\n        Websites</a>\n    </div>\n    <div class=\"col-8\">\n      <a class=\"color-black navbar-text navbar-brand text-bold\" href=\"#\">\n        New Website</a>\n      <a (click)=\"createNewWeb()\" class=\"check\">\n        <span class=\"fas fa-check fontawsome-icon float-right text-padding-top color-black\"></span></a>\n    </div>\n  </div>\n</nav>\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"d-none d-lg-block col-4\">\n      <ul class=\"list-group list-borderless\">\n        <li class=\"list-group-item list-borderless\" *ngFor=\"let website of websites\">\n          <a routerLink=\"/user/{{userId}}/website/{{website.websiteId}}/page\">{{website.name}}</a>\n          <a routerLink=\"/user/{{userId}}/website/{{website.websiteId}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"col-8\">\n        <div class=\"text-padding-top\">\n          <label for=\"website-name\" class=\"text-bold\">Name</label>\n          <input id=\"website-name\" type=\"text\" class=\"form-control\" placeholder=\"Name\" [(ngModel)]=\"name\"/>\n        </div>\n        <div class=\"text-padding-top\">\n          <label for=\"web-description\" class=\"text-bold\">Description</label>\n          <textarea id=\"web-description\" class=\"form-control\" rows=\"5\" placeholder=\"Description\" [(ngModel)]=\"description\"></textarea>\n        </div>\n    </div>\n  </div>\n</div>\n\n<nav class=\"navbar fixed-bottom navbar-light bg-light\">\n  <div class=\"container-fluid\">\n    &nbsp;\n    <a (click)=\"backToProfile()\" class=\"check\">\n      <span class=\"fas fa-user fontawsome-icon color-black\"></span>\n    </a>\n  </div>\n</nav>\n\n"
 
 /***/ }),
 
@@ -1269,20 +1356,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebsiteNewComponent", function() { return WebsiteNewComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _models_website_model_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../models/website.model.client */ "./src/app/models/website.model.client.ts");
+/* harmony import */ var _services_website_service_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/website.service.client */ "./src/app/services/website.service.client.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
+
 
 
 var WebsiteNewComponent = /** @class */ (function () {
-    function WebsiteNewComponent() {
+    function WebsiteNewComponent(router, websiteService, activatedRouter) {
+        this.router = router;
+        this.websiteService = websiteService;
+        this.activatedRouter = activatedRouter;
+        this.websites = [];
     }
-    WebsiteNewComponent.prototype.ngOnInit = function () {
+    WebsiteNewComponent.prototype.createNewWeb = function () {
+        console.log(this.name + '    ' + this.description);
+        if (!this.name || !this.description) {
+            alert('Please enter the name or description');
+        }
+        else {
+            this.websiteService.createWebsite(this.userId, new _models_website_model_client__WEBPACK_IMPORTED_MODULE_3__["Website"](undefined, this.name, this.userId, this.description));
+            this.backToWebsites();
+        }
     };
+    WebsiteNewComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activatedRouter.params.subscribe(function (params) {
+            _this.userId = params.userId;
+        });
+        alert(this.userId);
+        this.websites = this.websiteService.findWebsitesByUser(this.userId);
+    };
+    WebsiteNewComponent.prototype.backToWebsites = function () {
+        this.router.navigate(['user/' + this.userId + '/website']);
+    };
+    WebsiteNewComponent.prototype.backToProfile = function () {
+        this.router.navigate(['user', this.userId]);
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgForm"])
+    ], WebsiteNewComponent.prototype, "newWebForm", void 0);
     WebsiteNewComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-website-new',
             template: __webpack_require__(/*! ./website-new.component.html */ "./src/app/views/website/website-new/website-new.component.html"),
             styles: [__webpack_require__(/*! ./website-new.component.css */ "./src/app/views/website/website-new/website-new.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _services_website_service_client__WEBPACK_IMPORTED_MODULE_4__["WebsiteService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
     ], WebsiteNewComponent);
     return WebsiteNewComponent;
 }());
@@ -1298,7 +1423,7 @@ var WebsiteNewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy93aWRnZXQvd2lkZ2V0LWNob29zZXIvd2lkZ2V0LWNob29zZXIuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3dpZGdldC93aWRnZXQtY2hvb3Nlci93aWRnZXQtY2hvb3Nlci5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -1354,7 +1479,7 @@ var WidgetChooserComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy93aWRnZXQvd2lkZ2V0LWVkaXQvd2lkZ2V0LWVkaXQuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3dpZGdldC93aWRnZXQtZWRpdC93aWRnZXQtZWRpdC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -1410,7 +1535,7 @@ var WidgetEditComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ2aWV3cy93aWRnZXQvd2lkZ2V0LWxpc3Qvd2lkZ2V0LWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3dpZGdldC93aWRnZXQtbGlzdC93aWRnZXQtbGlzdC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
