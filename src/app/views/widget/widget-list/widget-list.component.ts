@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Widget} from '../../../models/widget.model.client';
 import {WidgetService} from '../../../services/widget.service.client';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-widget-list',
@@ -15,7 +16,7 @@ export class WidgetListComponent implements OnInit {
 
   widgets: Widget[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router, private domSanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -39,6 +40,12 @@ export class WidgetListComponent implements OnInit {
   getUrl(url: string) {
     alert(url);
     return url;
+  }
+
+  checkUrl(url: string) {
+    const safeUrl: SafeResourceUrl =
+      this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+    return safeUrl;
   }
 
 }

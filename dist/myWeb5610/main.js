@@ -627,8 +627,8 @@ var WidgetService = /** @class */ (function () {
                 text: 'London terror attack: Police fired \'unprecedented\' number of rounds', width: undefined, url: undefined },
             { widgetId: '234', widgetType: 'IMAGE', pageId: '345', size: undefined, text: undefined, width: '100%',
                 url: 'http://i2.cdn.cnn.com/cnnnext/dam/assets/170604130220-41-london-bridge-incident-0604-gallery-exlarge-169.jpg' },
-            { widgetId: '345', widgetType: 'YOUTUBE', pageId: '345', size: undefined, text: undefined, width: '100%',
-                url: 'https://www.youtube.com/embed/APexI9Zb6iE' },
+            { widgetId: '345', widgetType: 'YOUTUBE', pageId: '345', size: undefined, text: undefined, width: '80%',
+                url: 'https://www.youtube.com/embed/ZwKhufmMxko' },
         ];
         this.api = {
             createWidget: this.createWidget,
@@ -1823,7 +1823,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light fixed-top\">\n  <div class=\"float-left\">\n    <a (click)=\"backToPages()\"><span class=\"color-black fas fa-chevron-left fontawsome_icon\"></span></a>\n    <a class=\"navbar-text navbar-brand text-bold text-padding-left\" href=\"#\">Widgets</a>\n  </div>\n  <div class=\"float-right\">\n    <a routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/new\"><span class=\"color-black fas fa-plus fontawsome_icon\"></span></a>\n  </div>\n</nav>\n\n<div class=\"container\">\n    <div *ngFor=\"let widget of widgets\" class=\"text-padding-top\">\n      <div [ngSwitch]=\"widget.widgetType\">\n        <div *ngSwitchCase=\"'HEADER'\">\n          <div class=\"text-padding-top\">\n              <a class=\"float-right\" routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}\">\n                <span class=\"fas fa-cog fontawsome_icon\"></span>\n              </a>\n            <h1 [style.font-size]=\"getStyle(widget.size)\">\n              {{widget.text}}\n            </h1>\n          </div>\n        </div>\n\n        <div *ngSwitchCase=\"'IMAGE'\">\n            <div class=\"text-padding-top\">\n              <div class=\"text-padding-top\">\n                <a class=\"float-right\" routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}\">\n                  <span class=\"fas fa-cog fontawsome_icon\"></span>\n                </a>\n              </div>\n              <img class=\"img-fluid rounded widget-images\" [src]=\"widget.url\" [style.width]=\"widget.width\">\n            </div>\n        </div>\n\n        <div *ngSwitchCase=\"'YOUTUBE'\">\n          <div class=\"text-padding-top\">\n            <div class=\"embed-responsive embed-responsive-16by9 text-padding-top\">\n              <a class=\"float-right\" routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}\">\n                <span class=\"fas fa-cog fontawsome_icon\"></span>\n              </a>\n              <iframe [style.width]=\"getStyle(widget.width)\" [src]=\"widget.url\" frameborder=\"0\"></iframe>\"\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n</div>\n\n<nav class=\"navbar navbar-default fixed-bottom\">\n  <div class=\"container-fluid row\">\n    <div class=\"float-right navbar-text\">\n      <a (click)=\"backToProfile()\" class=\"text-padding-left\">\n        <span class=\"fas fa-user fontawsome_icon color-black\"></span>\n      </a>\n    </div>\n    <div class=\"float-left navbar-text\">\n      <a href=\"#\" class=\"text-padding-left\">\n        <span class=\"fas fa-play color-black\"></span>\n      </a>\n      <a href=\"#\" class=\"text-padding-left\">\n        <span class=\"fas fa-eye color-black\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light fixed-top\">\n  <div class=\"float-left\">\n    <a (click)=\"backToPages()\"><span class=\"color-black fas fa-chevron-left fontawsome_icon\"></span></a>\n    <a class=\"navbar-text navbar-brand text-bold text-padding-left\" href=\"#\">Widgets</a>\n  </div>\n  <div class=\"float-right\">\n    <a routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/new\"><span class=\"color-black fas fa-plus fontawsome_icon\"></span></a>\n  </div>\n</nav>\n\n<div class=\"container\">\n    <div *ngFor=\"let widget of widgets\" class=\"text-padding-top\">\n      <div [ngSwitch]=\"widget.widgetType\">\n        <div *ngSwitchCase=\"'HEADER'\">\n          <div class=\"text-padding-top\">\n              <a class=\"float-right\" routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}\">\n                <span class=\"fas fa-cog fontawsome_icon\"></span>\n              </a>\n            <h1 [style.font-size]=\"widget.size+ 'px'\">\n              {{widget.text}}\n            </h1>\n          </div>\n        </div>\n\n        <div *ngSwitchCase=\"'IMAGE'\">\n            <div class=\"text-padding-top\">\n              <div class=\"text-padding-top\">\n                <a class=\"float-right\" routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}\">\n                  <span class=\"fas fa-cog fontawsome_icon\"></span>\n                </a>\n              </div>\n              <img class=\"img-fluid img-rounded widget-images\" [src]=\"widget.url\" [style.width]=\"widget.width\">\n            </div>\n        </div>\n\n        <div *ngSwitchCase=\"'YOUTUBE'\">\n          <div class=\"text-padding-top\">\n            <div class=\"embed-responsive embed-responsive-16by9 text-padding-top\">\n              <iframe width=\"640\" height=\"360\" [src]=\"checkUrl(widget.url)\" frameborder=\"0\" allowfullscreen [style.width]=\"widget.width\">\n              </iframe>\n              <a class=\"float-right\" routerLink=\"/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}\">\n                <span class=\"fas fa-cog fontawsome_icon\"></span>\n              </a>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n</div>\n\n<nav class=\"navbar navbar-default fixed-bottom\">\n  <div class=\"container-fluid row\">\n    <div class=\"float-right navbar-text\">\n      <a (click)=\"backToProfile()\" class=\"text-padding-left\">\n        <span class=\"fas fa-user fontawsome_icon color-black\"></span>\n      </a>\n    </div>\n    <div class=\"float-left navbar-text\">\n      <a href=\"#\" class=\"text-padding-left\">\n        <span class=\"fas fa-play color-black\"></span>\n      </a>\n      <a href=\"#\" class=\"text-padding-left\">\n        <span class=\"fas fa-eye color-black\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n\n"
 
 /***/ }),
 
@@ -1841,15 +1841,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _services_widget_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/widget.service.client */ "./src/app/services/widget.service.client.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+
 
 
 
 
 var WidgetListComponent = /** @class */ (function () {
-    function WidgetListComponent(activatedRoute, widgetService, router) {
+    function WidgetListComponent(activatedRoute, widgetService, router, domSanitizer) {
         this.activatedRoute = activatedRoute;
         this.widgetService = widgetService;
         this.router = router;
+        this.domSanitizer = domSanitizer;
         this.widgets = [];
     }
     WidgetListComponent.prototype.ngOnInit = function () {
@@ -1868,11 +1871,13 @@ var WidgetListComponent = /** @class */ (function () {
     WidgetListComponent.prototype.backToPages = function () {
         this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
     };
-    WidgetListComponent.prototype.getStyle = function (size) {
-        return size + 'px';
-    };
-    WidgetListComponent.prototype.getResourceURL = function (url) {
+    WidgetListComponent.prototype.getUrl = function (url) {
+        alert(url);
         return url;
+    };
+    WidgetListComponent.prototype.checkUrl = function (url) {
+        var safeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+        return safeUrl;
     };
     WidgetListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1880,7 +1885,7 @@ var WidgetListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./widget-list.component.html */ "./src/app/views/widget/widget-list/widget-list.component.html"),
             styles: [__webpack_require__(/*! ./widget-list.component.css */ "./src/app/views/widget/widget-list/widget-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _services_widget_service_client__WEBPACK_IMPORTED_MODULE_3__["WidgetService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _services_widget_service_client__WEBPACK_IMPORTED_MODULE_3__["WidgetService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["DomSanitizer"]])
     ], WidgetListComponent);
     return WidgetListComponent;
 }());

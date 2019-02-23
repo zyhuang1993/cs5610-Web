@@ -36,7 +36,7 @@
         <div *ngSwitchCase="'YOUTUBE'">
           <div class="text-padding-top">
             <div class="embed-responsive embed-responsive-16by9 text-padding-top">
-              <iframe width="640" height="360" [src]="getUrl(widget.url)" frameborder="0" allowfullscreen [style.width]="checkStyle(widget.width)">
+              <iframe width="640" height="360" [src]="checkUrl(widget.url)" frameborder="0" allowfullscreen [style.width]="widget.width">
               </iframe>
               <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}">
                 <span class="fas fa-cog fontawsome_icon"></span>
