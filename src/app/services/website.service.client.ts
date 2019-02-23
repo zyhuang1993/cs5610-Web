@@ -26,8 +26,8 @@ export class WebsiteService {
 
   createWebsite(userId, website) {
     website.websiteId = this.randomID();
+    website.developerId = userId;
     this.websites.push(website);
-    console.log(this.websites);
   }
 
   findWebsitesByUser(userId: string) {

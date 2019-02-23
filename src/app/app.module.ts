@@ -20,8 +20,10 @@ import { PageEditComponent } from './views/page/page-edit/page-edit.component';
 import { PageNewComponent } from './views/page/page-new/page-new.component';
 import { WidgetListComponent } from './views/widget/widget-list/widget-list.component';
 import { WidgetChooserComponent } from './views/widget/widget-chooser/widget-chooser.component';
-import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.component';
 import { HomeComponent } from './views/home/home.component';
+import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
+import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
+import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +39,10 @@ import { HomeComponent } from './views/home/home.component';
     PageNewComponent,
     WidgetListComponent,
     WidgetChooserComponent,
-    WidgetEditComponent,
     HomeComponent,
+    WidgetHeaderComponent,
+    WidgetImageComponent,
+    WidgetYoutubeComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,69 @@
-<p>
-  widget-list works!
-</p>
+<nav class="navbar navbar-default navbar-light bg-light fixed-top">
+  <div class="float-left">
+    <a (click)="backToPages()"><span class="color-black fas fa-chevron-left fontawsome_icon"></span></a>
+    <a class="navbar-text navbar-brand text-bold text-padding-left" href="#">Widgets</a>
+  </div>
+  <div class="float-right">
+    <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/new"><span class="color-black fas fa-plus fontawsome_icon"></span></a>
+  </div>
+</nav>
+
+<div class="container">
+    <div *ngFor="let widget of widgets" class="text-padding-top">
+      <div [ngSwitch]="widget.widgetType">
+        <div *ngSwitchCase="'HEADER'">
+          <div class="text-padding-top">
+              <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}">
+                <span class="fas fa-cog fontawsome_icon"></span>
+              </a>
+            <h1 [style.font-size]="widget.size+ 'px'">
+              {{widget.text}}
+            </h1>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'IMAGE'">
+            <div class="text-padding-top">
+              <div class="text-padding-top">
+                <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}">
+                  <span class="fas fa-cog fontawsome_icon"></span>
+                </a>
+              </div>
+              <img class="img-fluid img-rounded widget-images" [src]="widget.url" [style.width]="widget.width">
+            </div>
+        </div>
+
+        <div *ngSwitchCase="'YOUTUBE'">
+          <div class="text-padding-top">
+            <div class="embed-responsive embed-responsive-16by9 text-padding-top">
+              <iframe width="640" height="360" [src]="getUrl(widget.url)" frameborder="0" allowfullscreen [style.width]="checkStyle(widget.width)">
+              </iframe>
+              <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}">
+                <span class="fas fa-cog fontawsome_icon"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default fixed-bottom">
+  <div class="container-fluid row">
+    <div class="float-right navbar-text">
+      <a (click)="backToProfile()" class="text-padding-left">
+        <span class="fas fa-user fontawsome_icon color-black"></span>
+      </a>
+    </div>
+    <div class="float-left navbar-text">
+      <a href="#" class="text-padding-left">
+        <span class="fas fa-play color-black"></span>
+      </a>
+      <a href="#" class="text-padding-left">
+        <span class="fas fa-eye color-black"></span>
+      </a>
+    </div>
+  </div>
+</nav>
+

@@ -1,0 +1,41 @@
+<nav class="navbar navbar-light bg-light fixed-top">
+  <div class="row container-fluid">
+    <div class="float-left">
+      <a (click)="backToWidgets()" class="check"><span class="color-black fas fa-chevron-left fontawsome_icon"></span></a>
+      <a class="navbar-text navbar-brand text-bold text-padding-left"
+         routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}">Widgets Edit</a>
+    </div>
+    <div class="text-brand float-right text-padding-top">
+      <a class="color-black" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}"></a>
+    </div>
+    <div class="float-right text-padding-top">
+      <a (click)="widgetOperation()"><span class="color-black fas fa-check fontawsome_icon"></span></a>
+    </div>
+  </div>
+
+</nav>
+<div class="container">
+  <form>
+    <div class="form-group text-padding-top">
+      <label for="widget name" class="text-bold">Text</label>
+      <input id="widget name" type="text" class="form-control" placeholder="Name" [(ngModel)]="text"/>
+    </div>
+    <div class="form-group">
+      <label for="widget-size" class="text-bold">Size</label>
+      <input id="widget-size" type="number" class="form-control" placeholder="Size" [(ngModel)]="size"/>
+    </div>
+  </form>
+  <a (click)="deleteWidget()" class="check btn btn-danger btn-block">Delete</a>
+  <a (click)="backToWidgets()" class="check btn btn-danger btn-block">Cancel</a>
+
+
+</div>
+
+<nav class="navbar navbar-light bg-light fixed-bottom">
+  <div class="float-left"> </div>
+  <div class="float-right">
+    <a (click)="backToProfile()"><span class="fas fa-user fontawsome_icon color-black"></span></a>
+  </div>
+
+</nav>
+

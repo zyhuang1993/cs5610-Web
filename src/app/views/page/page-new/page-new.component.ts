@@ -12,7 +12,7 @@ export class PageNewComponent implements OnInit {
   userId: string;
   websiteId: string;
   name: string;
-  title: string;
+  description: string;
   pages: Page[] = [];
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private pageService: PageService) { }
@@ -26,10 +26,10 @@ export class PageNewComponent implements OnInit {
   }
 
   createNewPage() {
-    if (!this.name || !this.title) {
-      alert('Please enter the name or title');
+    if (!this.name || !this.description) {
+      alert('Please enter the name or description');
     } else {
-      this.pageService.createPage(this.userId, new Page(undefined, this.name, this.websiteId, this.title));
+      this.pageService.createPage(this.websiteId, new Page(undefined, this.name, undefined, this.description));
       this.backToPages();
     }
   }

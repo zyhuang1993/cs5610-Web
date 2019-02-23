@@ -24,7 +24,7 @@ export class WebsiteNewComponent implements OnInit {
     if (!this.name || !this.description) {
       alert('Please enter the name or description');
     } else {
-      this.websiteService.createWebsite(this.userId, new Website(undefined, this.name, this.userId, this.description));
+      this.websiteService.createWebsite(this.userId, new Website(undefined, this.name, undefined, this.description));
       this.backToWebsites();
     }
   }

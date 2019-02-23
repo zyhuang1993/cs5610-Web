@@ -14,7 +14,9 @@ import {PageListComponent} from './views/page/page-list/page-list.component';
 import {PageEditComponent} from './views/page/page-edit/page-edit.component';
 import {WidgetListComponent} from './views/widget/widget-list/widget-list.component';
 import {WidgetChooserComponent} from './views/widget/widget-chooser/widget-chooser.component';
-import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.component';
+import {WidgetYoutubeComponent} from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
+import {WidgetHeaderComponent} from './views/widget/widget-edit/widget-header/widget-header.component';
+import {WidgetImageComponent} from './views/widget/widget-edit/widget-image/widget-image.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -29,7 +31,12 @@ const appRoutes: Routes = [
   { path: 'user/:userId/website/:websiteId/page/:pageId', component: PageEditComponent},
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget', component: WidgetListComponent},
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new', component: WidgetChooserComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:wigdetId', component: WidgetEditComponent}
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/youtube', component: WidgetYoutubeComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/header', component: WidgetHeaderComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/image', component: WidgetImageComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:wigdetId/youtube', component: WidgetYoutubeComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:wigdetId/header', component: WidgetHeaderComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:wigdetId/image', component: WidgetImageComponent}
 ];
 
 @NgModule({

@@ -4,8 +4,8 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class PageService {
   pages: Page[] = [
-    { pageId: '345', name: 'Post 1', websiteId: '123', description: 'Lorem' },
-    { pageId: '456', name: 'Post 2', websiteId: '234', description: 'Lorem' },
+    { pageId: '345', name: 'Post 1', websiteId: '890', description: 'Lorem' },
+    { pageId: '456', name: 'Post 2', websiteId: '890', description: 'Lorem' },
     { pageId: '567', name: 'Post 3', websiteId: '345', description: 'Lorem' },
     { pageId: '678', name: 'Post 4', websiteId: '456', description: 'Lorem' },
     { pageId: '789', name: 'Post 5', websiteId: '567', description: 'Lorem' },
@@ -25,6 +25,7 @@ export class PageService {
 
   createPage(websiteId: string, page: Page) {
     page.pageId = this.randomID();
+    page.websiteId = websiteId;
     this.pages.push(page);
   }
 

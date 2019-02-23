@@ -4,27 +4,26 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class WidgetService {
   widgets: Widget[] = [
-    { widgetId: '123', widgetType: 'HEADING', pageId: '321', size: 2, text: 'GIZMODO', width: undefined, url: undefined},
-    { widgetId: '234', widgetType: 'HEADING', pageId: '321', size: 4, text: 'Lorem ipsum', width: undefined, url: undefined},
-    { widgetId: '345', widgetType: 'IMAGE', pageId: '321', size: undefined, text: undefined, width: '100%',
-      url: 'http://lorempixel.com/400/200/'},
-    { widgetId: '456', widgetType: 'HTML', pageId: '321', size: undefined, text: '<p>Lorem ipsum</p>', width: undefined, url: undefined},
-    { widgetId: '567', widgetType: 'HEADING', pageId: '321', size: 4, text: 'Lorem ipsum', width: undefined, url: undefined},
-    { widgetId: '678', widgetType: 'YOUTUBE', pageId: '321', size: undefined, text: undefined, width: '100%',
-      url: 'https://youtu.be/AM2Ivdi9c4E'},
-    { widgetId: '789', widgetType: 'HTML', pageId: '321', size: undefined, text: '<p>Lorem ipsum</p>', width: undefined, url: undefined}
+    { widgetId: '123', widgetType: 'HEADER', pageId: '345', size: 20,
+      text: 'London terror attack: Police fired \'unprecedented\' number of rounds', width: undefined, url: undefined},
+    { widgetId: '234', widgetType: 'IMAGE', pageId: '345', size: undefined, text: undefined, width: '100%',
+      url: 'http://i2.cdn.cnn.com/cnnnext/dam/assets/170604130220-41-london-bridge-incident-0604-gallery-exlarge-169.jpg'},
+    { widgetId: '345', widgetType: 'YOUTUBE', pageId: '345', size: undefined, text: undefined, width: '100%',
+      url: 'https://www.youtube.com/embed/APexI9Zb6iE'},
   ];
 
   api = {
     createWidget: this.createWidget,
-    findWidgetByPageId: this.findWidgetsByPageId,
+    findWidgetsByPageId: this.findWidgetsByPageId,
     findWidgetById: this.findWidgetById,
     updateWidget: this.updateWidget,
     deleteWidget: this.deleteWidget
   };
 
   createWidget(pageId, widget) {
-    this.widgets.push(new Widget(widget.widgetId, widget.widgetType, pageId, widget.size, widget.text, widget.width, widget.url));
+    widget.widgetId = this.randomID();
+    widget.pageId = pageId;
+    this.widgets.push(widget);
   }
 
   findWidgetsByPageId(pageId) {
@@ -74,5 +73,10 @@ export class WidgetService {
       break;
     }
   }
+  }
+
+  private randomID(): string {
+    const num = Math.floor(Math.random() * 1000) + 1;
+    return num.toString();
   }
 }

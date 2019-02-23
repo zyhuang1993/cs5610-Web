@@ -20,7 +20,6 @@ export class PageListComponent implements OnInit {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
     });
-    alert(this.userId + '   ' + this.websiteId);
     this.pages = this.pageService.findPagesByWebsiteId(this.websiteId);
   }
 
