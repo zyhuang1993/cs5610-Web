@@ -816,6 +816,9 @@ var PageEditComponent = /** @class */ (function () {
         });
     };
     PageEditComponent.prototype.updateCurPage = function () {
+        if (!this.name || !this.description) {
+            alert('Please enter the name or description');
+        }
         this.pageService.updatePage(this.pageId, new _models_page_model_client__WEBPACK_IMPORTED_MODULE_3__["Page"](this.pageId, this.name, this.websiteId, this.description));
         this.backToPages();
     };
@@ -1295,6 +1298,9 @@ var WebsiteEditComponent = /** @class */ (function () {
         });
     };
     WebsiteEditComponent.prototype.updateCurWebsite = function () {
+        if (!this.name || !this.description) {
+            alert('Please make sure the input area is not blank');
+        }
         this.websiteService.updateWebsite(this.websiteId, new _models_website_model_client__WEBPACK_IMPORTED_MODULE_3__["Website"](this.websiteId, this.name, this.userId, this.description));
         this.router.navigate(['user/' + this.userId + '/website']);
     };
