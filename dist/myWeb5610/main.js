@@ -809,11 +809,11 @@ var PageEditComponent = /** @class */ (function () {
             _this.userId = params.userId;
             _this.websiteId = params.websiteId;
             _this.pageId = params.pageId;
+            _this.pages = _this.pageService.findPagesByWebsiteId(_this.websiteId);
+            var curPage = _this.pageService.findPageById(_this.pageId);
+            _this.name = curPage.name;
+            _this.description = curPage.description;
         });
-        this.pages = this.pageService.findPagesByWebsiteId(this.websiteId);
-        var curPage = this.pageService.findPageById(this.pageId);
-        this.name = curPage.name;
-        this.description = curPage.description;
     };
     PageEditComponent.prototype.updateCurPage = function () {
         this.pageService.updatePage(this.pageId, new _models_page_model_client__WEBPACK_IMPORTED_MODULE_3__["Page"](this.pageId, this.name, this.websiteId, this.description));
@@ -1250,7 +1250,7 @@ module.exports = "body {\n  padding-top: 0;\n  padding-bottom: 0;\n}\n\nmain {\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header>\n<nav class=\"navbar fixed-top background-blue\">\n  <div class=\"row row-div\">\n    <div class=\"col-sm-4 container-fluid d-none d-sm-block\">\n      <p class=\"navbar-text float-left\">\n        <a class=\"navbar-link nav-icon\" routerLink=\"/user/{{userId}}/website\">\n          <span class=\"fas fa-chevron-left fontawsome_icon top-left\"></span>\n        </a>\n        <a class=\"text-white text-bold\" routerLink=\"/user/{{userId}}/website\">\n          Websites\n        </a>\n      </p>\n    </div>\n    <div class=\"col-sm-8 container-fluid\">\n      <p class=\"navbar-text float-left\">\n        <a routerLink=\"/user/{{userId}}/website\" class=\"navbar-link text-white d-inline d-sm-none d-md-none d-lg-none\">\n          <span class=\"fas fa-chevron-left fontawsome-icon top-left\"></span>\n        </a>\n        <a class=\"text-white text-bold\" routerLink=\"/user/{{userId}}/website/{{websiteId}}\">\n          Edit Website\n        </a>\n      </p>\n      <a (click)=\"updateCurWebsite()\" class=\"navbar-link navbar-text float-right nav-icon check-icon\">\n        <span class=\"fas fa-check fontawsome_icon top-right\"></span>\n      </a>\n    </div>\n\n  </div>\n</nav>\n</header>\n<main>\n<div class=\"container-fluid\">\n  <div class=\"row row-div\">\n    <div class=\"d-none d-sm-block col-sm-4\">\n      <ul class=\"list-group list-borderless\">\n        <li class=\"list-group-item list-borderless\" *ngFor=\"let website of websites\">\n          <a routerLink=\"/user/{{userId}}/website/{{website.websiteId}}/page\">{{website.name}}</a>\n          <a routerLink=\"/user/{{userId}}/website/{{website.websiteId}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"col-sm-8 right-content\">\n        <div class=\"text-padding-top\">\n          <label for=\"website-name\" class=\"text-bold\">Website Name</label>\n          <input id=\"website-name\" type=\"text\" class=\"form-control\" placeholder=\"Website Name\" [(ngModel)]=\"name\"/>\n        </div>\n        <div class=\"text-padding-top\">\n          <label for=\"web-description\" class=\"text-bold\">Description</label>\n          <textarea id=\"web-description\" class=\"form-control\" rows=\"5\" placeholder=\"Web Description\" [(ngModel)]=\"description\"></textarea>\n        </div>\n      <a (click)=\"deleteWeb()\" class=\"btn btn-danger btn-block margin-top\">Delete</a>\n    </div>\n  </div>\n</div>\n</main>\n<footer>\n  <nav class=\"navbar fixed-bottom background-blue\">\n    <div class=\"container-fluid\">\n      <p class=\"navbar-text float-left\"></p>\n      <a class=\"nav-icon\" routerLink=\"/user/{{userId}}\">\n        <span class=\"fas fa-user fontawsome-icon bottom-right\"></span>\n      </a>\n    </div>\n  </nav>\n</footer>\n"
+module.exports = "<header>\n<nav class=\"navbar fixed-top background-blue\">\n  <div class=\"row row-div\">\n    <div class=\"col-sm-4 container-fluid d-none d-sm-block\">\n      <p class=\"navbar-text float-left\">\n        <a class=\"navbar-link nav-icon\" routerLink=\"/user/{{userId}}/website\">\n          <span class=\"fas fa-chevron-left fontawsome_icon top-left\"></span>\n        </a>\n        <a class=\"text-white text-bold\" routerLink=\"/user/{{userId}}/website\">\n          Websites\n        </a>\n      </p>\n    </div>\n    <div class=\"col-sm-8 container-fluid\">\n      <p class=\"navbar-text float-left\">\n        <a routerLink=\"/user/{{userId}}/website\" class=\"navbar-link text-white d-inline d-sm-none d-md-none d-lg-none\">\n          <span class=\"fas fa-chevron-left fontawsome-icon top-left\"></span>\n        </a>\n        <a class=\"text-white text-bold\" routerLink=\"/user/{{userId}}/website/{{websiteId}}\">\n          Edit Website\n        </a>\n      </p>\n      <a (click)=\"updateCurWebsite()\" class=\"navbar-link navbar-text float-right nav-icon check-icon\">\n        <span class=\"fas fa-check fontawsome_icon top-right\"></span>\n      </a>\n    </div>\n\n  </div>\n</nav>\n</header>\n<main>\n<div class=\"container-fluid\">\n  <div class=\"row row-div\">\n    <div class=\"d-none d-sm-block col-sm-4\">\n      <ul class=\"list-group list-borderless\">\n        <li class=\"list-group-item list-borderless\" *ngFor=\"let website of websites\">\n          <a routerLink=\"/user/{{userId}}/website/{{website.websiteId}}/page\">{{website.name}}</a>\n          <a routerLink=\"/user/{{userId}}/website/{{website.websiteId}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"col-sm-8 right-content\">\n        <div class=\"text-padding-top\">\n          <label for=\"website-name\" class=\"text-bold\">Website Name</label>\n          <input id=\"website-name\" type=\"text\" class=\"form-control\" [placeholder]=\"name\" [(ngModel)]=\"name\"/>\n        </div>\n        <div class=\"text-padding-top\">\n          <label for=\"web-description\" class=\"text-bold\">Description</label>\n          <textarea id=\"web-description\" class=\"form-control\" rows=\"5\" [placeholder]=\"description\" [(ngModel)]=\"description\"></textarea>\n        </div>\n      <a (click)=\"deleteWeb()\" class=\"btn btn-danger btn-block margin-top\">Delete</a>\n    </div>\n  </div>\n</div>\n</main>\n<footer>\n  <nav class=\"navbar fixed-bottom background-blue\">\n    <div class=\"container-fluid\">\n      <p class=\"navbar-text float-left\"></p>\n      <a class=\"nav-icon\" routerLink=\"/user/{{userId}}\">\n        <span class=\"fas fa-user fontawsome-icon bottom-right\"></span>\n      </a>\n    </div>\n  </nav>\n</footer>\n"
 
 /***/ }),
 
@@ -1286,13 +1286,13 @@ var WebsiteEditComponent = /** @class */ (function () {
         this.activatedRouter.params.subscribe(function (params) {
             _this.userId = params.userId;
             _this.websiteId = params.websiteId;
+            _this.websites = _this.websiteService.findWebsitesByUser(_this.userId);
+            var curWebsite = _this.websiteService.findWebsiteById(_this.websiteId);
+            if (curWebsite) {
+                _this.name = curWebsite.name;
+                _this.description = curWebsite.description;
+            }
         });
-        this.websites = this.websiteService.findWebsitesByUser(this.userId);
-        var curWebsite = this.websiteService.findWebsiteById(this.websiteId);
-        if (curWebsite) {
-            this.name = curWebsite.name;
-            this.description = curWebsite.description;
-        }
     };
     WebsiteEditComponent.prototype.updateCurWebsite = function () {
         this.websiteService.updateWebsite(this.websiteId, new _models_website_model_client__WEBPACK_IMPORTED_MODULE_3__["Website"](this.websiteId, this.name, this.userId, this.description));
@@ -1366,8 +1366,10 @@ var WebsiteListComponent = /** @class */ (function () {
     }
     WebsiteListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.activateRoute.params.subscribe(function (params) { return _this.userId = params.userId; });
-        this.websites = this.websiteService.findWebsitesByUser(this.userId);
+        this.activateRoute.params.subscribe(function (params) {
+            _this.userId = params.userId;
+            _this.websites = _this.websiteService.findWebsitesByUser(_this.userId);
+        });
     };
     WebsiteListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1446,8 +1448,8 @@ var WebsiteNewComponent = /** @class */ (function () {
         var _this = this;
         this.activatedRouter.params.subscribe(function (params) {
             _this.userId = params.userId;
+            _this.websites = _this.websiteService.findWebsitesByUser(_this.userId);
         });
-        this.websites = this.websiteService.findWebsitesByUser(this.userId);
     };
     WebsiteNewComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

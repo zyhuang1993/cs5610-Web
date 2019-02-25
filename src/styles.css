@@ -194,4 +194,8 @@ a.top-left {
   border-left: #000000 2px solid;
 }
 
+.text-white:hover {
+  color: lightskyblue !important;
+}
+
 

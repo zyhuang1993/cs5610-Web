@@ -21,13 +21,13 @@ export class WebsiteEditComponent implements OnInit {
     this.activatedRouter.params.subscribe(params => {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
+      this.websites = this.websiteService.findWebsitesByUser(this.userId);
+      const curWebsite: Website = this.websiteService.findWebsiteById(this.websiteId);
+      if (curWebsite) {
+        this.name = curWebsite.name;
+        this.description = curWebsite.description;
+      }
     });
-    this.websites = this.websiteService.findWebsitesByUser(this.userId);
-    const curWebsite: Website = this.websiteService.findWebsiteById(this.websiteId);
-    if (curWebsite) {
-      this.name = curWebsite.name;
-      this.description = curWebsite.description;
-    }
   }
 
   updateCurWebsite() {

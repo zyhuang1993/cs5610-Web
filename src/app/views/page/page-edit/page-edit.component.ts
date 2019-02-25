@@ -24,11 +24,11 @@ export class PageEditComponent implements OnInit {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
+      this.pages = this.pageService.findPagesByWebsiteId(this.websiteId);
+      const curPage = this.pageService.findPageById(this.pageId);
+      this.name = curPage.name;
+      this.description = curPage.description;
     });
-    this.pages = this.pageService.findPagesByWebsiteId(this.websiteId);
-    const curPage = this.pageService.findPageById(this.pageId);
-    this.name = curPage.name;
-    this.description = curPage.description;
   }
 
   updateCurPage() {
