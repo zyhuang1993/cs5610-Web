@@ -1,36 +1,46 @@
-<nav class="navbar navbar-light bg-light fixed-top">
-  <div class="d-lg-none d-inline margin-right">
-    <a (click)="backToWebsites()" class="check color-black">
-      <span class="fas fa-chevron-left fontawsome_icon"></span></a>
-  </div>
-  <div class="row row-in-navbar">
-    <div class="d-none d-lg-block col-4 navbar-item navbar-left">
-      <a (click)="backToWebsites()" class="check color-black">
-        <span class="fas fa-chevron-left fontawsome_icon"></span></a>
-      <a class="color-black navbar-text navbar-brand text-bold text-padding-left" href="#">
-        Websites</a>
+<header>
+<nav class="navbar fixed-top background-blue">
+  <div class="row row-div">
+    <div class="col-sm-4 container-fluid d-none d-sm-block">
+      <p class="navbar-text float-left">
+        <a class="navbar-link nav-icon" routerLink="/user/{{userId}}/website">
+          <span class="fas fa-chevron-left fontawsome_icon top-left"></span>
+        </a>
+        <a class="text-white text-bold" routerLink="/user/{{userId}}/website">
+          Websites
+        </a>
+      </p>
     </div>
-    <div class="col-8">
-      <a class="navbar-text color-black navbar-brand text-bold" href="#">
-        Edit Website</a>
-      <a (click)="updateCurWebsite()" class="check color-black">
-        <span class="fas fa-check float-right text-padding-top"></span></a>
+    <div class="col-sm-8 container-fluid">
+      <p class="navbar-text float-left">
+        <a routerLink="/user/{{userId}}/website" class="navbar-link text-white d-inline d-sm-none d-md-none d-lg-none">
+          <span class="fas fa-chevron-left fontawsome-icon top-left"></span>
+        </a>
+        <a class="text-white text-bold" routerLink="/user/{{userId}}/website/{{websiteId}}">
+          Edit Website
+        </a>
+      </p>
+      <a (click)="updateCurWebsite()" class="navbar-link navbar-text float-right nav-icon check-icon">
+        <span class="fas fa-check fontawsome_icon top-right"></span>
+      </a>
     </div>
+
   </div>
 </nav>
-
+</header>
+<main>
 <div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-4">
+  <div class="row row-div">
+    <div class="d-none d-sm-block col-sm-4">
       <ul class="list-group list-borderless">
         <li class="list-group-item list-borderless" *ngFor="let website of websites">
-          <a routerLink="user/{{userId}}/website/{{website.websiteId}}/page">{{website.name}}</a>
-          <a routerLink="user/{{userId}}/website/{{website.websiteId}}"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
+          <a routerLink="/user/{{userId}}/website/{{website.websiteId}}/page">{{website.name}}</a>
+          <a routerLink="/user/{{userId}}/website/{{website.websiteId}}"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
         </li>
       </ul>
     </div>
 
-    <div class="col-8">
+    <div class="col-sm-8 right-content">
         <div class="text-padding-top">
           <label for="website-name" class="text-bold">Website Name</label>
           <input id="website-name" type="text" class="form-control" placeholder="Website Name" [(ngModel)]="name"/>
@@ -43,12 +53,14 @@
     </div>
   </div>
 </div>
-
-<nav class="navbar fixed-bottom navbar-light bg-light">
-  <div class="container-fluid">
-    &nbsp;
-    <a (click)="backToProfile()" class="check">
-      <span class="fas fa-user fontawsome-icon color-black"></span>
-    </a>
-  </div>
-</nav>
+</main>
+<footer>
+  <nav class="navbar fixed-bottom background-blue">
+    <div class="container-fluid">
+      <p class="navbar-text float-left"></p>
+      <a class="nav-icon" routerLink="/user/{{userId}}">
+        <span class="fas fa-user fontawsome-icon bottom-right"></span>
+      </a>
+    </div>
+  </nav>
+</footer>

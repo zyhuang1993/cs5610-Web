@@ -1,3 +1,52 @@
-<p>
-  widget-image works!
-</p>
+<header>
+  <nav class="navbar fixed-top">
+    <div class="container-fluid">
+      <p class="navbar-text float-left">
+        <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="navbar-link">
+          <span class="nav-black-icon fas fa-chevron-left fontawsome_icon top-left"></span>
+        </a>
+        <a class="navbar-black-brand" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}">
+          Edit Widget
+        </a>
+      </p>
+      <a (click)="widgetOperation()" class="navbar-link navbar-text float-right check-icon"><span class="nav-black-icon fas fa-check fontawsome_icon top-right">
+        </span>
+      </a>
+    </div>
+  </nav>
+</header>
+<main>
+<div class="container">
+    <div class="form-group">
+      <label for="image-text" class="text-bold">Title</label>
+      <input id="image-text" type="text" class="form-control" placeholder="Text" [(ngModel)]="text">
+    </div>
+    <div class="form-group">
+      <label for="image-url" class="text-bold">URL</label>
+      <input id="image-url" type="url" class="form-control" placeholder="URL" [(ngModel)]="url"/>
+    </div>
+    <div class="form-group">
+      <label for="image-width" class="text-bold">Width</label>
+      <input id="image-width" type="text" class="form-control" placeholder="100%" [(ngModel)]="width"/>
+    </div>
+
+    <div class="form-group">
+      <label for="widget-file" class="text-bold">Upload</label>
+      <input id="widget-file" type="file">
+    </div>
+
+  <a class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
+  <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="btn btn-success btn-block">Cancel</a>
+
+</div>
+</main>
+<footer>
+  <nav class="navbar fixed-bottom">
+    <div class="container-fluid">
+      <p class="navbar-text float-left"></p>
+      <a class="nav-black-icon" routerLink="/user/{{userId}}">
+        <span class="fas fa-user fontawsome-icon bottom-right"></span>
+      </a>
+    </div>
+  </nav>
+</footer>

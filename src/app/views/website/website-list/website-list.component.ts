@@ -11,17 +11,12 @@ import {Website} from '../../../models/website.model.client';
 export class WebsiteListComponent implements OnInit {
   userId: string;
   websites: Website[] = [];
-  constructor(private websiteService: WebsiteService, private activateRoute: ActivatedRoute, private router: Router) { }
+
+  constructor(private websiteService: WebsiteService, private activateRoute: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
     this.activateRoute.params.subscribe((params: any) => this.userId = params.userId);
     this.websites = this.websiteService.findWebsitesByUser(this.userId);
-    alert(this.userId);
   }
-
-
-  backToProfile() {
-    this.router.navigate(['user', this.userId]);
-  }
-
 }

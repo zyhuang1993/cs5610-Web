@@ -6,9 +6,9 @@ export class WidgetService {
   widgets: Widget[] = [
     { widgetId: '123', widgetType: 'HEADER', pageId: '345', size: 20,
       text: 'London terror attack: Police fired \'unprecedented\' number of rounds', width: undefined, url: undefined},
-    { widgetId: '234', widgetType: 'IMAGE', pageId: '345', size: undefined, text: undefined, width: '100%',
+    { widgetId: '234', widgetType: 'IMAGE', pageId: '345', size: undefined, text: 'Image', width: '100%',
       url: 'http://i2.cdn.cnn.com/cnnnext/dam/assets/170604130220-41-london-bridge-incident-0604-gallery-exlarge-169.jpg'},
-    { widgetId: '345', widgetType: 'YOUTUBE', pageId: '345', size: undefined, text: undefined, width: '80%',
+    { widgetId: '345', widgetType: 'YOUTUBE', pageId: '345', size: undefined, text: 'Myvideo', width: '90%',
       url: 'https://www.youtube.com/embed/ZwKhufmMxko'},
   ];
 

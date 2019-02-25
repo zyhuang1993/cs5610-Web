@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
 
   updateUser() {
     this.userService.updateUser(this.user.userId, this.user);
-    this.router.navigate(['user', this.user.userId]);
+    alert('Your profile has been updated.');
   }
 
   ngOnInit() {

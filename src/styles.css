@@ -1,6 +1,6 @@
 body {
-  padding-top: 60px;
-  padding-bottom: 70px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 input.form-control {
@@ -11,13 +11,30 @@ a:hover {
   text-decoration: none;
 }
 
-.check:hover {
+.nav-icon {
+  color: white;
+}
+.nav-icon:hover {
   cursor: pointer;
-  color: darkgrey;
+  color: lightskyblue;
+}
+
+.nav-black-icon {
+  color: black !important;
+}
+
+.nav-black-icon:hover {
+  cursor: pointer;
+  color: lightskyblue !important;
 }
 
 a:not([href]):not([tabindex]) {
   color: #fff;
+}
+
+a:not([href]):not([tabindex]):hover {
+  color: #fff;
+  cursor:pointer;
 }
 
 .text-padding-top {
@@ -26,6 +43,7 @@ a:not([href]):not([tabindex]) {
 
 .text-bold {
   font-weight: bold;
+  font-size: 20px;
 }
 
 .text-padding-left {
@@ -57,8 +75,20 @@ a:not([href]):not([tabindex]) {
   flex-grow: 1;
 }
 
-.color-black {
+.text-black {
   color: #000;
+}
+
+.navbar-black-brand {
+  font-size: 20px;
+  font-weight: bold;
+  color: black !important;
+}
+
+.navbar-black-brand:hover {
+  cursor: pointer;
+  font-size: 20px;
+  color: lightskyblue !important;
 }
 
 
@@ -76,3 +106,92 @@ a:not([href]):not([tabindex]) {
 .margin-right {
   margin-right: 10px;
 }
+
+.btn-block {
+  margin-top: 12px;
+}
+.btn-block + .btn-block {
+  margin-top: 12px;
+}
+.form-control {
+  margin-top: 12px;
+}
+
+nav {
+  background: lightgray;
+}
+
+.navbar-brand {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar-brand:hover {
+  cursor: pointer;
+  font-size: 20px;
+  color: lightskyblue;
+}
+
+
+#hide{
+  color: #2f61b7;
+}
+
+.background-blue {
+  background-color: #2f61b7;
+}
+
+#hide:hover {
+  cursor: default;
+}
+
+.navbar-text {
+  padding-top: 0;
+}
+
+
+p.float-left {
+  height: 18px;
+  margin-top: 6px;
+}
+
+.top-left {
+  font-size: 20px;
+  margin-top: 6px;
+  margin-right: 20px;
+}
+
+.top-right {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.bottom-right {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+main>div.container-fluid {
+  height: 100%;
+}
+
+a.top-left {
+  margin-top: 0px;
+}
+
+.bottom-left {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.row-div {
+  width: 100%;
+  height: 100%;
+}
+
+.right-content {
+  border-left: #000000 2px solid;
+}
+
+

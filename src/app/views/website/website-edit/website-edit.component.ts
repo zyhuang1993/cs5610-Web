@@ -30,19 +30,11 @@ export class WebsiteEditComponent implements OnInit {
 
   updateCurWebsite() {
     this.websiteService.updateWebsite(this.websiteId, new Website(this.websiteId, this.name, this.userId, this.description));
-    this.backToWebsites();
-  }
-
-  backToWebsites() {
     this.router.navigate(['user/' + this.userId + '/website']);
-  }
-
-  backToProfile() {
-    this.router.navigate(['user/', this.userId]);
   }
 
   deleteWeb() {
     this.websiteService.deleteWebsite(this.websiteId);
-    this.backToWebsites();
+    this.router.navigate(['user/' + this.userId + '/website']);
   }
 }

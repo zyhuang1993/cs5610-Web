@@ -75,10 +75,5 @@ export class WidgetHeaderComponent implements OnInit {
     this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
   }
 
-  backToProfile() {
-    this.router.navigate(['user/' + this.userId]);
-  }
-
-
 
 }

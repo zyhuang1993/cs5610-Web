@@ -1,19 +1,23 @@
-<nav class="navbar fixed-top navbar-light bg-light">
-  <div class="container-fluid color-black">
-      <span>
-        <a href="profile.html">
-          <span class="fas fa-chevron-left fontawsome_icon text-padding-top color-black"></span>
-        </a>
-      <a class="navbar-text navbar-brand text-bold text-padding-left" href="#">
+<header>
+<nav class="navbar fixed-top background-blue">
+  <div class="container-fluid">
+    <p class="navbar-text float-left">
+      <a routerLink="/user/{{userId}}" class="navbar-link">
+        <span class="nav-icon fas fa-chevron-left fontawsome_icon top-left"></span>
+      </a>
+      <a class="navbar-brand text-bold" routerLink="/user/{{userId}}/website">
         Websites
       </a>
-      </span>
-    <a routerLink="/user/{{userId}}/website/new">
-      <span class="fas fa-plus fontawsome-icon color-black"></span>
+    </p>
+    <a routerLink="/user/{{userId}}/website/new" class="navbar-link navbar-text float-right">
+      <span class="nav-icon fas fa-plus fontawsome-icon top-right"></span>
     </a>
   </div>
 </nav>
-<div class="container container-padding">
+</header>
+
+<main>
+<div class="container">
   <ul class="list-group list-borderless">
     <li class="list-group-item list-borderless" *ngFor="let website of websites">
       <a routerLink="/user/{{userId}}/website/{{website.websiteId}}/page">{{website.name}}</a>
@@ -21,11 +25,15 @@
     </li>
   </ul>
 </div>
-<nav class="navbar fixed-bottom navbar-light bg-light">
+</main>
+
+<footer>
+<nav class="navbar fixed-bottom background-blue">
   <div class="container-fluid">
-    &nbsp;
-    <a class="check" (click)="backToProfile()">
-      <span class="fas fa-user fontawsome-icon color-black"></span>
+    <p class="navbar-text float-left"></p>
+    <a class="nav-icon" routerLink="/user/{{userId}}">
+      <span class="fas fa-user fontawsome-icon bottom-right"></span>
     </a>
   </div>
 </nav>
+</footer>

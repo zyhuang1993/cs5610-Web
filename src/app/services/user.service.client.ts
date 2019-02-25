@@ -65,7 +65,6 @@ export class UserService {
 
   private randomID(): string {
     const num = Math.floor(Math.random() * 1000) + 1;
-    console.log(this.users);
     return num.toString();
   }
 }

@@ -1,15 +1,18 @@
-<nav class="navbar navbar-default fixed-top navbar-light bg-light">
-  <div class="container-fluid">
-      <span>
-        <a href="widget-list.html" class="text-padding-top">
-          <i class="color-black fas fa-chevron-left fontawsome_icon text-padding-top"></i>
+<header>
+  <nav class="navbar fixed-top">
+    <div class="container-fluid">
+      <p class="navbar-text float-left">
+        <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget" class="navbar-link">
+          <span class="nav-black-icon fas fa-chevron-left fontawsome_icon top-left"></span>
         </a>
-      <a class="color-black navbar-text navbar-brand text-bold text-padding-left" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/new">
-        Choose Widget
-      </a>
-      </span>
-  </div>
-</nav>
+        <a class="navbar-black-brand" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/new">
+          Choose Widget
+        </a>
+      </p>
+    </div>
+  </nav>
+</header>
+<main>
 <div class="container container-padding">
   <ul class="list-group list-borderless">
     <li class="list-group-item list-borderless">
@@ -43,13 +46,16 @@
       <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/new">Repeater</a>
     </li>
   </ul>
-  <a class="btn btn-danger btn-block" href="widget-list.html">Cancel</a>
+  <a class="btn btn-danger btn-block" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget">Cancel</a>
 </div>
-<nav class="navbar fixed-bottom navbar-light bg-light">
-  <div class="container-fluid row">
-    &nbsp;
-    <a (click)="backToProfile()" class="check float-right">
-      <i class="fas fa-user fontawsome-icon color-black"></i>
-    </a>
-  </div>
-</nav>
+</main>
+<footer>
+  <nav class="navbar fixed-bottom">
+    <div class="container-fluid">
+      <p class="navbar-text float-left"></p>
+      <a class="nav-black-icon" routerLink="/user/{{userId}}">
+        <span class="fas fa-user fontawsome-icon bottom-right"></span>
+      </a>
+    </div>
+  </nav>
+</footer>

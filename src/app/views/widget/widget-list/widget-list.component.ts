@@ -25,22 +25,8 @@ export class WidgetListComponent implements OnInit {
       this.pageId = params.pageId;
     });
     this.widgets = this.widgetService.findWidgetsByPageId(this.pageId);
-    console.log(this.widgets);
   }
 
-  backToProfile() {
-    this.router.navigate(['user', this.userId]);
-  }
-
-  backToPages() {
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
-  }
-
-
-  getUrl(url: string) {
-    alert(url);
-    return url;
-  }
 
   checkUrl(url: string) {
     const safeUrl: SafeResourceUrl =

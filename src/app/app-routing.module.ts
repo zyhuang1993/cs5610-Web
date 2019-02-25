@@ -34,9 +34,9 @@ const appRoutes: Routes = [
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/youtube', component: WidgetYoutubeComponent},
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/header', component: WidgetHeaderComponent},
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/image', component: WidgetImageComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:wigdetId/youtube', component: WidgetYoutubeComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:wigdetId/header', component: WidgetHeaderComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:wigdetId/image', component: WidgetImageComponent}
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/youtube', component: WidgetYoutubeComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/header', component: WidgetHeaderComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/image', component: WidgetImageComponent}
 ];
 
 @NgModule({

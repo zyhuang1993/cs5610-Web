@@ -23,11 +23,4 @@ export class PageListComponent implements OnInit {
     this.pages = this.pageService.findPagesByWebsiteId(this.websiteId);
   }
 
-  backToProfile() {
-    this.router.navigate(['user', this.userId]);
-  }
-
-  backToWebsites() {
-    this.router.navigate(['user/' + this.userId + '/website']);
-  }
 }

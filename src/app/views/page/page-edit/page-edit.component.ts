@@ -37,12 +37,9 @@ export class PageEditComponent implements OnInit {
   }
 
   backToPages() {
-    this.router.navigate(['user/' + this.userId + '/website']);
+    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
   }
 
-  backToProfile() {
-    this.router.navigate(['user/', this.userId]);
-  }
 
   deletePage() {
     this.pageService.deletePage(this.pageId);

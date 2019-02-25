@@ -30,17 +30,8 @@ export class PageNewComponent implements OnInit {
       alert('Please enter the name or description');
     } else {
       this.pageService.createPage(this.websiteId, new Page(undefined, this.name, undefined, this.description));
-      this.backToPages();
+      this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
     }
-  }
-
-
-  backToPages() {
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
-  }
-
-  backToProfile() {
-    this.router.navigate(['user/', this.userId]);
   }
 
 }
