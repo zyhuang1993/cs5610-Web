@@ -33,9 +33,10 @@ export class WebsiteEditComponent implements OnInit {
   updateCurWebsite() {
     if (!this.name || !this.description) {
       alert('Please make sure the input area is not blank');
+    } else {
+      this.websiteService.updateWebsite(this.websiteId, new Website(this.websiteId, this.name, this.userId, this.description));
+      this.router.navigate(['user/' + this.userId + '/website']);
     }
-    this.websiteService.updateWebsite(this.websiteId, new Website(this.websiteId, this.name, this.userId, this.description));
-    this.router.navigate(['user/' + this.userId + '/website']);
   }
 
   deleteWeb() {

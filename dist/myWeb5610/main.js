@@ -819,8 +819,10 @@ var PageEditComponent = /** @class */ (function () {
         if (!this.name || !this.description) {
             alert('Please enter the name or description');
         }
-        this.pageService.updatePage(this.pageId, new _models_page_model_client__WEBPACK_IMPORTED_MODULE_3__["Page"](this.pageId, this.name, this.websiteId, this.description));
-        this.backToPages();
+        else {
+            this.pageService.updatePage(this.pageId, new _models_page_model_client__WEBPACK_IMPORTED_MODULE_3__["Page"](this.pageId, this.name, this.websiteId, this.description));
+            this.backToPages();
+        }
     };
     PageEditComponent.prototype.backToPages = function () {
         this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
@@ -1301,8 +1303,10 @@ var WebsiteEditComponent = /** @class */ (function () {
         if (!this.name || !this.description) {
             alert('Please make sure the input area is not blank');
         }
-        this.websiteService.updateWebsite(this.websiteId, new _models_website_model_client__WEBPACK_IMPORTED_MODULE_3__["Website"](this.websiteId, this.name, this.userId, this.description));
-        this.router.navigate(['user/' + this.userId + '/website']);
+        else {
+            this.websiteService.updateWebsite(this.websiteId, new _models_website_model_client__WEBPACK_IMPORTED_MODULE_3__["Website"](this.websiteId, this.name, this.userId, this.description));
+            this.router.navigate(['user/' + this.userId + '/website']);
+        }
     };
     WebsiteEditComponent.prototype.deleteWeb = function () {
         this.websiteService.deleteWebsite(this.websiteId);

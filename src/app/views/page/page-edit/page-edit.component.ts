@@ -34,9 +34,10 @@ export class PageEditComponent implements OnInit {
   updateCurPage() {
     if (!this.name || !this.description) {
       alert('Please enter the name or description');
+    } else {
+      this.pageService.updatePage(this.pageId, new Page(this.pageId, this.name, this.websiteId, this.description));
+      this.backToPages();
     }
-    this.pageService.updatePage(this.pageId, new Page(this.pageId, this.name, this.websiteId, this.description));
-    this.backToPages();
   }
 
   backToPages() {
