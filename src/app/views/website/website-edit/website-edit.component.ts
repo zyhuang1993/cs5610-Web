@@ -24,8 +24,10 @@ export class WebsiteEditComponent implements OnInit {
     });
     this.websites = this.websiteService.findWebsitesByUser(this.userId);
     const curWebsite: Website = this.websiteService.findWebsiteById(this.websiteId);
-    this.name = curWebsite.name;
-    this.description = curWebsite.description;
+    if (curWebsite) {
+      this.name = curWebsite.name;
+      this.description = curWebsite.description;
+    }
   }
 
   updateCurWebsite() {

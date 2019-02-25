@@ -25,9 +25,6 @@ export class RegisterComponent implements OnInit {
   }
 
   register(verifiedPassword: string) {
-    if (!verifiedPassword) {
-      alert('Please enter your verified password');
-    }
     if (!this.username || !this.password || !this.lastName || !this.firstName) {
       alert('Please enter your register information');
     } else {

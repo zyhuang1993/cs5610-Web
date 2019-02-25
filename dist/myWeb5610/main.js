@@ -1049,7 +1049,6 @@ var LoginComponent = /** @class */ (function () {
         this.password = this.loginForm.value.password;
         var user = this.userService.findUserByCredentials(this.username, this.password);
         if (user) {
-            alert(this.username);
             this.router.navigate(['user', user.userId]);
         }
         else {
@@ -1123,6 +1122,9 @@ var ProfileComponent = /** @class */ (function () {
         this.title = 'profile';
     }
     ProfileComponent.prototype.updateUser = function () {
+        if (!this.user.username || !this.user.password || !this.user.firstName || !this.user.lastName) {
+            alert('Please enter your new profile information');
+        }
         this.userService.updateUser(this.user.userId, this.user);
         alert('Your profile has been updated.');
     };
@@ -1287,8 +1289,10 @@ var WebsiteEditComponent = /** @class */ (function () {
         });
         this.websites = this.websiteService.findWebsitesByUser(this.userId);
         var curWebsite = this.websiteService.findWebsiteById(this.websiteId);
-        this.name = curWebsite.name;
-        this.description = curWebsite.description;
+        if (curWebsite) {
+            this.name = curWebsite.name;
+            this.description = curWebsite.description;
+        }
     };
     WebsiteEditComponent.prototype.updateCurWebsite = function () {
         this.websiteService.updateWebsite(this.websiteId, new _models_website_model_client__WEBPACK_IMPORTED_MODULE_3__["Website"](this.websiteId, this.name, this.userId, this.description));

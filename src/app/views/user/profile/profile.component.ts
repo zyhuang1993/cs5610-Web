@@ -17,6 +17,9 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUser() {
+    if (!this.user.username || !this.user.password || !this.user.firstName || !this.user.lastName) {
+      alert('Please enter your new profile information');
+    }
     this.userService.updateUser(this.user.userId, this.user);
     alert('Your profile has been updated.');
   }
