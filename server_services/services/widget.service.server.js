@@ -1,6 +1,6 @@
 
 module.exports=function (app) {
-  const baseUrl = 'http://localhost:3200';
+  const baseUrl = 'https://webdev-ziyan.herokuapp.com';
   var widgets = [
     { widgetId: '123', widgetType: 'HEADER', pageId: '345', size: 20,
       text: 'London terror attack: Police fired \'unprecedented\' number of rounds', width: undefined, url: undefined},
