@@ -13,30 +13,35 @@ export class PageEditComponent implements OnInit {
   websiteId: string;
   pageId: string;
 
-  name: string;
-  description: string;
+  curPage: Page;
   pages: Page[] = [];
 
-  constructor(private pageService: PageService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private pageService: PageService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.curPage = new Page(undefined, undefined, undefined, undefined);
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
-      this.pages = this.pageService.findPagesByWebsiteId(this.websiteId);
-      const curPage = this.pageService.findPageById(this.pageId);
-      this.name = curPage.name;
-      this.description = curPage.description;
+      this.pageService.findPagesByWebsiteId(this.websiteId).subscribe((data: Page[]) => {
+        this.pages = data;
+      });
+      this.pageService.findPageById(this.pageId).subscribe((data: Page) => {
+        this.curPage = data;
+      });
     });
   }
 
   updateCurPage() {
-    if (!this.name || !this.description) {
+    if (!this.curPage.name || !this.curPage.description) {
       alert('Please enter the name or description');
     } else {
-      this.pageService.updatePage(this.pageId, new Page(this.pageId, this.name, this.websiteId, this.description));
-      this.backToPages();
+      this.pageService.updatePage(this.pageId, this.curPage).subscribe((data: Page) => {
+        this.curPage = data;
+        this.backToPages();
+      });
     }
   }
 
@@ -46,8 +51,9 @@ export class PageEditComponent implements OnInit {
 
 
   deletePage() {
-    this.pageService.deletePage(this.pageId);
-    this.backToPages();
+    this.pageService.deletePage(this.pageId).subscribe(() => {
+      this.backToPages();
+    });
   }
 
 }

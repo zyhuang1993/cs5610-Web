@@ -6,7 +6,7 @@
     {{title}}
   </h1>
   <div>
-    <form (ngSubmit)="login()" #f="ngForm">
+    <form method="get" (ngSubmit)="login()" #f="ngForm">
       <input type="text" class="form-control" placeholder="username" name="username"
              ngModel required #username="ngModel"/>
       <input type="password" class="form-control" placeholder="password" name="password"

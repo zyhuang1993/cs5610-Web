@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Widget} from '../../../../models/widget.model.client';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-widget-image',
@@ -15,30 +16,29 @@ export class WidgetImageComponent implements OnInit {
   pageId: string;
   widgetId: string;
 
-  text: string;
-  width: string;
-  url: string;
+  widget: Widget;
   isNewWidget: boolean;
-
-  constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  baseUrl: string;
+  constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.widget = new Widget(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+    this.baseUrl = environment.baseUrl;
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
-      this.widgetId = params.widgetId;
+      this.widgetId = params.widgetId; if (this.widgetId) {
+        this.widgetService.findWidgetById(this.widgetId).subscribe((data: Widget) => {
+          this.widget = data;
+          this.isNewWidget = false;
+        });
+      } else {
+        this.isNewWidget = true;
+      }
     });
-    const widget: Widget = this.widgetService.findWidgetById(this.widgetId);
-    if (widget) {
-      this.text = widget.text;
-      this.width = widget.width;
-      this.isNewWidget = false;
-      this.url = widget.url;
-    } else {
-      this.isNewWidget = true;
     }
-  }
 
   widgetOperation() {
     if (this.isNewWidget) {
@@ -49,30 +49,31 @@ export class WidgetImageComponent implements OnInit {
   }
 
   private createNewWidget() {
-    if (!this.text || !this.width || !this.url) {
+    if (!this.widget.text || !this.widget.width || !this.widget.url) {
       alert('Please enter the image information.');
     } else {
-      this.widgetService.createWidget(this.pageId, new Widget(undefined, 'IMAGE', undefined, undefined, this.text, this.width, this.url));
-      this.backToWidgets();
+      this.widgetService.createWidget(this.pageId, this.widget).subscribe((data: Widget) => {
+        this.widget = data;
+        this.backToWidgets();
+      });
     }
   }
 
   private updateCurWidget() {
-    if (!this.text || !this.width || !this.url) {
+    if (!this.widget.text || !this.widget.width || !this.widget.url) {
       alert('Please enter the image information.');
     } else {
-      const widget: Widget = this.widgetService.findWidgetById(this.widgetId);
-      widget.text = this.text;
-      widget.width = this.width;
-      widget.url = this.url;
-      this.widgetService.updateWidget(this.widgetId, widget);
-      this.backToWidgets();
-    }
+      this.widgetService.updateWidget(this.widgetId, this.widget).subscribe((data: Widget) => {
+        this.widget = data;
+        this.backToWidgets();
+      });
+  }
   }
 
   deleteWidget() {
-    this.widgetService.deleteWidget(this.widgetId);
-    this.backToWidgets();
+    this.widgetService.deleteWidget(this.widgetId).subscribe(() => {
+      this.backToWidgets();
+    });
   }
 
   backToWidgets() {

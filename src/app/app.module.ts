@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app-routing.module';
@@ -24,6 +25,7 @@ import { HomeComponent } from './views/home/home.component';
 import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
+import { SortableDirective } from './directives/sortable.directive';
 
 @NgModule({
   declarations: [
@@ -43,9 +45,11 @@ import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtub
     WidgetHeaderComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
+    SortableDirective,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule
   ],

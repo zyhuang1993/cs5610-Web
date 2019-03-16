@@ -19,17 +19,17 @@
 <div class="container">
     <div class="form-group text-padding-top">
       <label for="youtube-name" class="text-bold">Text</label>
-      <input id="youtube-name" type="text" class="form-control" placeholder="Name" [(ngModel)]="text"/>
+      <input id="youtube-name" type="text" class="form-control" placeholder="Name123123" [(ngModel)]="widget.text"/>
     </div>
     <div class="form-group">
       <label for="youtube-url" class="text-bold">URL</label>
-      <input id="youtube-url" type="url" class="form-control" placeholder="URL" [(ngModel)]="url"/>
+      <input id="youtube-url" type="url" class="form-control" placeholder="URL" [(ngModel)]="widget.url"/>
     </div>
     <div class="form-group">
       <label for="youtube-width" class="text-bold">Width</label>
-      <input id="youtube-width" type="text" class="form-control" placeholder="100%" [(ngModel)]="width"/>
+      <input id="youtube-width" type="text" class="form-control" placeholder="100%" [(ngModel)]="widget.width"/>
     </div>
-  <a class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
+  <a *ngIf="!isNewWidget" class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
   <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="btn btn-success btn-block">Cancel</a>
 
 </div>

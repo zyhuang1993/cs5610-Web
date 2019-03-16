@@ -19,8 +19,10 @@ export class PageListComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
+      this.pageService.findPagesByWebsiteId(this.websiteId).subscribe((data: Page[]) => {
+        this.pages = data;
+      });
     });
-    this.pages = this.pageService.findPagesByWebsiteId(this.websiteId);
   }
 
 }

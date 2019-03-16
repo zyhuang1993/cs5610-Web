@@ -3,8 +3,15 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
+// const cors = require('cors');
+
 const bodyParser = require('body-parser');
 const app = express();
+
+/*app.use(cors({
+  credentials: true,
+  origin: '*'
+}));*/
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,10 +29,11 @@ app.use(function(req, res, next) {
 
 const port = process.env.PORT || '3200';
 app.set('port', port);
-
+require('./server_services/app')(app);
 
 // Create HTTP server
 const server = http.createServer(app);
 server.listen( port , () => console.log('Running on port 3200'));
 
-//require('./assignment/app')(app);
+
+

@@ -7,7 +7,7 @@ export class Widget {
   width: string;
   url: string;
 
-  constructor(widgetId, type, pageId, size = 1, text = 'text', width = '100%', url = 'url') {
+  constructor(widgetId, type, pageId, size, text, width, url) {
     this.widgetId = widgetId;
     this.widgetType = type;
     this.pageId = pageId;

@@ -11,28 +11,27 @@ import {Router} from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   title: string;
-  username: string;
-  password: string;
-  lastName: string;
-  firstName: string;
-
+  user: User;
   errorFlag: boolean;
   errorMsg = 'Sorry, passwords mis-matching.';
 
   constructor(private router: Router, private userService: UserService) {
     this.title = 'Register';
     this.errorFlag = false;
+    this.user = new User(undefined, undefined, undefined, undefined, undefined);
   }
 
   register(verifiedPassword: string) {
-    if (!this.username || !this.password || !this.lastName || !this.firstName) {
+    if (!this.user.username || !this.user.password || !this.user.lastName || !this.user.firstName) {
       alert('Please enter your register information');
     } else {
-      if (verifiedPassword === this.password) {
+      if (verifiedPassword === this.user.password) {
         this.errorFlag = false;
-        const registeredUser: User = new User(undefined, this.username, this.password, this.firstName, this.lastName);
-        this.userService.createUser(registeredUser);
-        this.router.navigate(['user', registeredUser.userId]);
+        const registeredUser: User = new User(undefined, this.user.username, this.user.password, this.user.firstName, this.user.lastName);
+        this.userService.createUser(registeredUser).subscribe((data: User) => {
+          this.user.userId = data.userId;
+          this.router.navigate(['user', this.user.userId]);
+        });
       } else {
         this.errorFlag = true;
       }

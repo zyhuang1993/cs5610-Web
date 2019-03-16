@@ -13,12 +13,12 @@ export class WidgetHeaderComponent implements OnInit {
   websiteId: string;
   pageId: string;
   widgetId: string;
-
-  text: string;
-  size: number;
   isNewWidget: boolean;
+  widget: Widget;
 
-  constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.widget = new Widget(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -26,15 +26,15 @@ export class WidgetHeaderComponent implements OnInit {
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.widgetId = params.widgetId;
+      if (this.widgetId) {
+        this.widgetService.findWidgetById(this.widgetId).subscribe((data: Widget) => {
+          this.widget = data;
+          this.isNewWidget = false;
+        });
+      } else {
+        this.isNewWidget = true;
+      }
     });
-    const widget: Widget = this.widgetService.findWidgetById(this.widgetId);
-    if (widget) {
-      this.text = widget.text;
-      this.size = widget.size;
-      this.isNewWidget = false;
-    } else {
-      this.isNewWidget = true;
-    }
   }
 
   widgetOperation() {
@@ -46,29 +46,31 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   private createNewWidget() {
-    if (!this.text || !this.size) {
+    if (!this.widget.text || !this.widget.size) {
       alert('Please enter text and size.');
     } else {
-      this.widgetService.createWidget(this.pageId, new Widget(undefined, 'HEADER', undefined, this.size, this.text, undefined, undefined));
-      this.backToWidgets();
+      this.widgetService.createWidget(this.pageId, this.widget).subscribe((data: Widget) => {
+        this.widget = data;
+        this.backToWidgets();
+      });
     }
   }
 
   private updateCurWidget() {
-    if (!this.text || !this.size) {
+    if (!this.widget.text || !this.widget.size) {
       alert('Please enter text and size.');
     } else {
-      const widget: Widget = this.widgetService.findWidgetById(this.widgetId);
-      widget.text = this.text;
-      widget.size = this.size;
-      this.widgetService.updateWidget(this.widgetId, widget);
-      this.backToWidgets();
+      this.widgetService.updateWidget(this.widgetId, this.widget).subscribe((data: Widget) => {
+        this.widget = data;
+        this.backToWidgets();
+      });
     }
   }
 
   deleteWidget() {
-    this.widgetService.deleteWidget(this.widgetId);
-    this.backToWidgets();
+    this.widgetService.deleteWidget(this.widgetId).subscribe(() => {
+      this.backToWidgets();
+    });
   }
 
   backToWidgets() {

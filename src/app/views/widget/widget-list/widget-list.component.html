@@ -18,6 +18,7 @@
 
 <main>
 <div class="container">
+  <div appSortable (newIndexes)="reorderWidgets($event)">
     <div *ngFor="let widget of widgets" class="text-padding-top">
       <div [ngSwitch]="widget.widgetType">
         <div *ngSwitchCase="'HEADER'">
@@ -56,6 +57,7 @@
 
       </div>
     </div>
+</div>
 </div>
 </main>
 

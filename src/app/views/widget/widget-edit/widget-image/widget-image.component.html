@@ -19,23 +19,30 @@
 <div class="container">
     <div class="form-group">
       <label for="image-text" class="text-bold">Title</label>
-      <input id="image-text" type="text" class="form-control" placeholder="Text" [(ngModel)]="text">
+      <input id="image-text" type="text" class="form-control" placeholder="Text" [(ngModel)]="widget.text">
     </div>
     <div class="form-group">
       <label for="image-url" class="text-bold">URL</label>
-      <input id="image-url" type="url" class="form-control" placeholder="URL" [(ngModel)]="url"/>
+      <input id="image-url" type="url" class="form-control" placeholder="URL" [(ngModel)]="widget.url"/>
     </div>
     <div class="form-group">
       <label for="image-width" class="text-bold">Width</label>
-      <input id="image-width" type="text" class="form-control" placeholder="100%" [(ngModel)]="width"/>
+      <input id="image-width" type="text" class="form-control" placeholder="100%" [(ngModel)]="widget.width"/>
     </div>
 
-    <div class="form-group">
-      <label for="widget-file" class="text-bold">Upload</label>
-      <input id="widget-file" type="file">
-    </div>
 
-  <a class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
+  <form *ngIf="!isNewWidget" class="form-group" ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
+    <label for="widget-file" class="text-bold">Upload</label>
+    <input name="myFile" id="widget-file" type="file" />
+    <input name="widgetId" value="{{widgetId}}}" class="hide"/>
+    <input name="websiteId" value="{{websiteId}}}" class="hide"/>
+    <input name="pageId" value="{{pageId}}}" class="hide"/>
+    <input name="userId" value="{{userId}}}" class="hide"/>
+    <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
+    <br/>
+  </form>
+
+  <a *ngIf ="!isNewWidget" class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
   <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="btn btn-success btn-block">Cancel</a>
 
 </div>

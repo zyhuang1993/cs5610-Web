@@ -16,15 +16,18 @@ export class WidgetListComponent implements OnInit {
 
   widgets: Widget[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router, private domSanitizer: DomSanitizer) { }
+  constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router,
+              private domSanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
+      this.widgetService.findWidgetsByPageId(this.pageId).subscribe((data: Widget[]) => {
+        this.widgets = data;
+      });
     });
-    this.widgets = this.widgetService.findWidgetsByPageId(this.pageId);
   }
 
 
@@ -33,5 +36,11 @@ export class WidgetListComponent implements OnInit {
       this.domSanitizer.bypassSecurityTrustResourceUrl(url);
     return safeUrl;
   }
+
+   reorderWidgets(indexes) {
+    this.widgetService.reorderWidgets(indexes.startIndex, indexes.endIndex, this.pageId).subscribe((data) => {
+      console.log(data);
+    });
+   }
 
 }

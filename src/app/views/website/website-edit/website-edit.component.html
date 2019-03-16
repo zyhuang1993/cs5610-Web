@@ -43,11 +43,11 @@
     <div class="col-sm-8 right-content">
         <div class="text-padding-top">
           <label for="website-name" class="text-bold">Website Name</label>
-          <input id="website-name" type="text" class="form-control" [placeholder]="name" [(ngModel)]="name"/>
+          <input id="website-name" type="text" class="form-control" [placeholder]="curWebsite.name" [(ngModel)]="curWebsite.name"/>
         </div>
         <div class="text-padding-top">
           <label for="web-description" class="text-bold">Description</label>
-          <textarea id="web-description" class="form-control" rows="5" [placeholder]="description" [(ngModel)]="description"></textarea>
+          <textarea id="web-description" class="form-control" rows="5" [placeholder]="curWebsite.description" [(ngModel)]="curWebsite.description"></textarea>
         </div>
       <a (click)="deleteWeb()" class="btn btn-danger btn-block margin-top">Delete</a>
     </div>

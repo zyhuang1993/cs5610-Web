@@ -1,66 +1,39 @@
+import 'rxjs/Rx';
 import {Page} from '../models/page.model.client';
 import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class PageService {
-  pages: Page[] = [
-    { pageId: '345', name: 'Post 1', websiteId: '890', description: 'Lorem' },
-    { pageId: '456', name: 'Post 2', websiteId: '890', description: 'Lorem' },
-    { pageId: '567', name: 'Post 3', websiteId: '345', description: 'Lorem' },
-    { pageId: '678', name: 'Post 4', websiteId: '456', description: 'Lorem' },
-    { pageId: '789', name: 'Post 5', websiteId: '567', description: 'Lorem' },
-    { pageId: '890', name: 'Post 6', websiteId: '678', description: 'Lorem' },
-    { pageId: '901', name: 'Post 6', websiteId: '789', description: 'Lorem' }
-  ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  api = {
-    createPage: this.createPage,
-    findPagesByWebsiteId: this.findPagesByWebsiteId,
-    findPageById: this.findPageById,
-    updatePage: this.updatePage,
-    deletePage: this.deletePage
-  };
+  baseUrl = environment.baseUrl;
 
-  createPage(websiteId: string, page: Page) {
-    page.pageId = this.randomID();
-    page.websiteId = websiteId;
-    this.pages.push(page);
+  createPage( websiteId: string, page: Page): Observable<Page> {
+    const url = this.baseUrl + '/api/website/' + websiteId + '/page';
+    return this.http.post<Page>(url, page);
   }
 
-  findPagesByWebsiteId(websiteId) {
-    return this.pages.filter((page) => {
-      return page.websiteId === websiteId;
-    });
+  findPagesByWebsiteId(websiteId): Observable<Page[]> {
+    const url = this.baseUrl + '/api/website/' + websiteId + '/page';
+    return this.http.get<Page[]>(url);
   }
 
-  findPageById(pageId) {
-    return this.pages.find((page) => {
-      return page.pageId === pageId;
-    });
+  findPageById(pageId): Observable<Page> {
+    const url = this.baseUrl + '/api/page/' + pageId;
+    return this.http.get<Page>(url);
   }
 
-  updatePage(pageId, page) {
-    for (const i in this.pages) {
-      if (this.pages[i].pageId === pageId) {
-        this.pages[i].name = page.name;
-        this.pages[i].description = page.description;
-      }
-    }
+  updatePage(pageId, page): Observable<Page> {
+    const url = this.baseUrl + '/api/page/' + pageId;
+    return this.http.put<Page>(url, page);
   }
 
-  deletePage(pageId) {
-    for (const i in this.pages) {
-      if (this.pages[i].pageId === pageId) {
-        const j = +i;
-        this.pages.splice(j, 1);
-        break;
-      }
-    }
-  }
-  private randomID(): string {
-    const num = Math.floor(Math.random() * 1000) + 1;
-    return num.toString();
+  deletePage(pageId): Observable<Page[]> {
+    const url = this.baseUrl + '/api/page/' + pageId;
+    return this.http.delete<Page[]>(url);
   }
 }

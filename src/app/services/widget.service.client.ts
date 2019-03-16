@@ -1,82 +1,44 @@
 import {Widget} from '../models/widget.model.client';
 import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class WidgetService {
-  widgets: Widget[] = [
-    { widgetId: '123', widgetType: 'HEADER', pageId: '345', size: 20,
-      text: 'London terror attack: Police fired \'unprecedented\' number of rounds', width: undefined, url: undefined},
-    { widgetId: '234', widgetType: 'IMAGE', pageId: '345', size: undefined, text: 'Image', width: '100%',
-      url: 'http://i2.cdn.cnn.com/cnnnext/dam/assets/170604130220-41-london-bridge-incident-0604-gallery-exlarge-169.jpg'},
-    { widgetId: '345', widgetType: 'YOUTUBE', pageId: '345', size: undefined, text: 'Myvideo', width: '90%',
-      url: 'https://www.youtube.com/embed/ZwKhufmMxko'},
-  ];
+  constructor(private http: HttpClient) {}
+  baseurl = environment.baseUrl;
 
-  api = {
-    createWidget: this.createWidget,
-    findWidgetsByPageId: this.findWidgetsByPageId,
-    findWidgetById: this.findWidgetById,
-    updateWidget: this.updateWidget,
-    deleteWidget: this.deleteWidget
-  };
-
-  createWidget(pageId, widget) {
-    widget.widgetId = this.randomID();
-    widget.pageId = pageId;
-    this.widgets.push(widget);
+  createWidget(pageId, widget): Observable<Widget> {
+    const url = this.baseurl + '/api/page/' + pageId + '/widget';
+    return this.http.post<Widget>(url, widget);
   }
 
-  findWidgetsByPageId(pageId) {
-    return this.widgets.filter((widget) => {
-      return widget.pageId === pageId;
-    });
+  findWidgetsByPageId(pageId): Observable<Widget[]> {
+    const url = this.baseurl + '/api/page/' + pageId + '/widget';
+    return this.http.get<Widget[]>(url);
   }
 
-  findWidgetById(widgetId) {
-    return this.widgets.find((widget) => {
-      return widget.widgetId === widgetId;
-    });
+  findWidgetById(widgetId): Observable<Widget> {
+    const url = this.baseurl + '/api/widget/' + widgetId;
+    return this.http.get<Widget>(url);
+
   }
 
-  updateWidget(widgetId, widget) {
-    for ( const i in this.widgets ) {
-      if ( this.widgets[i].widgetId === widgetId ) {
-        switch (widget.widgetType) {
-          case 'HEADER':
-            this.widgets[i].text = widget.text;
-            this.widgets[i].size = widget.size;
-            return true;
-
-          case 'IMAGE':
-            this.widgets[i].text = widget.text;
-            this.widgets[i].url = widget.url;
-            this.widgets[i].width = widget.width;
-            return true;
-
-          case 'YOUTUBE':
-            this.widgets[i].text = widget.text;
-            this.widgets[i].url = widget.url;
-            this.widgets[i].width = widget.width;
-            return true;
-        }
-
-      }
-    }
-    return false;
+  updateWidget(widgetId, widget): Observable<Widget> {
+    const url = this.baseurl + '/api/widget/' + widgetId;
+    return this.http.put<Widget>(url, widget);
   }
 
-  deleteWidget(widgetId) {
-  for (const i in this.widgets) {
-    if (this.widgets[i].widgetId === widgetId) {
-      const j = +i;
-      this.widgets.splice(j, 1);
-      break;
-    }
-  }
+  deleteWidget(widgetId): Observable<Widget[]> {
+    const url = this.baseurl + '/api/widget/' + widgetId;
+    return this.http.delete<Widget[]>(url);
   }
 
-  private randomID(): string {
-    const num = Math.floor(Math.random() * 1000) + 1;
-    return num.toString();
+  reorderWidgets(startIndex, endIndex, pageId) {
+
+    const url = this.baseurl + '/api/page/' + pageId + '/widget?start=' + startIndex + '&end=' + endIndex;
+    return this.http.get(url);
   }
+
 }

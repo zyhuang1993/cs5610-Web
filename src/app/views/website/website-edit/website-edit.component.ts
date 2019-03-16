@@ -11,36 +11,41 @@ import {WebsiteService} from '../../../services/website.service.client';
 export class WebsiteEditComponent implements OnInit {
   userId: string;
   websiteId: string;
-  name: string;
-  description: string;
+  curWebsite: Website;
   websites: Website[] = [];
 
-  constructor(private activatedRouter: ActivatedRoute, private websiteService: WebsiteService, private router: Router) { }
+  constructor(private activatedRouter: ActivatedRoute, private websiteService: WebsiteService, private router: Router) {
+    this.curWebsite = new Website(undefined, undefined, undefined, undefined);
+  }
 
   ngOnInit() {
     this.activatedRouter.params.subscribe(params => {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
-      this.websites = this.websiteService.findWebsitesByUser(this.userId);
-      const curWebsite: Website = this.websiteService.findWebsiteById(this.websiteId);
-      if (curWebsite) {
-        this.name = curWebsite.name;
-        this.description = curWebsite.description;
-      }
+      this.websiteService.findWebsitesByUser(this.userId).subscribe((data: Website[]) => {
+        this.websites = data;
+      });
+      this.websiteService.findWebsiteById(this.websiteId).subscribe((data: Website) => {
+        this.curWebsite = data;
+      });
     });
   }
 
   updateCurWebsite() {
-    if (!this.name || !this.description) {
+    if (!this.curWebsite.name || !this.curWebsite.description) {
       alert('Please make sure the input area is not blank');
     } else {
-      this.websiteService.updateWebsite(this.websiteId, new Website(this.websiteId, this.name, this.userId, this.description));
-      this.router.navigate(['user/' + this.userId + '/website']);
+      this.websiteService.updateWebsite(this.websiteId, this.curWebsite)
+                          .subscribe((data: Website) => {
+                            this.router.navigate(['user/' + this.userId + '/website']);
+                          });
     }
   }
 
   deleteWeb() {
-    this.websiteService.deleteWebsite(this.websiteId);
-    this.router.navigate(['user/' + this.userId + '/website']);
+    this.websiteService.deleteWebsite(this.websiteId).subscribe(() => {
+      alert('delete successfully');
+      this.router.navigate(['user/' + this.userId + '/website']);
+    });
   }
 }
