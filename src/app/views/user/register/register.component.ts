@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   user: User;
   errorFlag: boolean;
   errorMsg = 'Sorry, passwords mis-matching.';
+  vpassword: string;
 
   constructor(private router: Router, private userService: UserService) {
     this.title = 'Register';
@@ -21,11 +22,11 @@ export class RegisterComponent implements OnInit {
     this.user = new User(undefined, undefined, undefined, undefined, undefined);
   }
 
-  register(verifiedPassword: string) {
-    if (!this.user.username || !this.user.password || !this.user.lastName || !this.user.firstName) {
+  register() {
+    if (!this.user.username || !this.user.password || !this.user.lastName || !this.user.firstName || !this.vpassword) {
       alert('Please enter your register information');
     } else {
-      if (verifiedPassword === this.user.password) {
+      if (this.vpassword === this.user.password) {
         this.errorFlag = false;
         const registeredUser: User = new User(undefined, this.user.username, this.user.password, this.user.firstName, this.user.lastName);
         this.userService.createUser(registeredUser).subscribe((data: User) => {
