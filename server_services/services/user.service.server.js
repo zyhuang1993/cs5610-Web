@@ -26,6 +26,7 @@ module.exports=function (app) {
     user.userId = randomId();
     users.push(user);
     res.json(user);
+
   }
 
 
