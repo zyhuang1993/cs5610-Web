@@ -32,9 +32,9 @@
 
     <input style="display: none" type="file" class="form-control" (change)="onFileChanged($event)" #fileInput/>
   <button *ngIf="!isNewWidget" (click)="fileInput.click()" class="btn btn-block btn-primary">Select Image</button>
-    <button (click)="upload()" class="btn btn-block btn-primary">Upload</button>
+    <button *ngIf="!isNewWidget" (click)="upload()" class="btn btn-block btn-primary">Upload</button>
 
-  <a *ngIf ="isNewWidget" class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
+  <a *ngIf ="!isNewWidget" class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
   <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="btn btn-success btn-block">Cancel</a>
 
 </div>
