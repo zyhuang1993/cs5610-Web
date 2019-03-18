@@ -1,4 +1,4 @@
-<header>
+<header xmlns="http://www.w3.org/1999/html">
   <nav class="navbar fixed-top">
     <div class="container-fluid">
       <p class="navbar-text float-left">
@@ -30,19 +30,11 @@
       <input id="image-width" type="text" class="form-control" placeholder="100%" [(ngModel)]="widget.width"/>
     </div>
 
+    <input style="display: none" type="file" class="form-control" (change)="onFileChanged($event)" #fileInput/>
+  <button *ngIf="!isNewWidget" (click)="fileInput.click()" class="btn btn-block btn-primary">Select Image</button>
+    <button (click)="upload()" class="btn btn-block btn-primary">Upload</button>
 
-  <form *ngIf="!isNewWidget" class="form-group" ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
-    <label for="widget-file" class="text-bold">Upload</label>
-    <input name="myFile" id="widget-file" type="file" />
-    <input name="widgetId" value="{{widgetId}}}" class="hide"/>
-    <input name="websiteId" value="{{websiteId}}}" class="hide"/>
-    <input name="pageId" value="{{pageId}}}" class="hide"/>
-    <input name="userId" value="{{userId}}}" class="hide"/>
-    <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
-    <br/>
-  </form>
-
-  <a *ngIf ="!isNewWidget" class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
+  <a *ngIf ="isNewWidget" class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
   <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="btn btn-success btn-block">Cancel</a>
 
 </div>

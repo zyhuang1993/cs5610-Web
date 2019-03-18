@@ -1,6 +1,5 @@
 
 module.exports=function (app) {
-  const baseUrl = 'https://webdev-ziyan.herokuapp.com';
   var widgets = [
     { widgetId: '123', widgetType: 'HEADER', pageId: '345', size: 20,
       text: 'London terror attack: Police fired \'unprecedented\' number of rounds', width: undefined, url: undefined},
@@ -11,17 +10,23 @@ module.exports=function (app) {
   ];
 
   var multer = require('multer');
-  var upload = multer({dest: __dirname+'/../../src/assets/uploads'});
+  var storage = multer.diskStorage({
+    destination: __dirname + '/../../src/assets/uploads',
+    filename(req, file, callback) {
+      callback(null, file.originalname)
+    }
+  });
+  var upload = multer({storage: storage});
 
   app.get('/api/widget/:widgetId', findWidgetById);
   app.get('/api/page/:pageId/widget', findAllWidgetsByPage);
   app.post('/api/page/:pageId/widget', createWidget);
-  app.put('/api/widget/:widget', updateWidget);
-  app.delete('/api/widget/:widget', deleteWidget);
+  app.put('/api/widget/:widgetId', updateWidget);
+  app.delete('/api/widget/:widgetId', deleteWidget);
 
   app.get('/api/page/:pageId/widget', reorderWidgets);
 
-  app.post('/api/upload', upload.single('myFile'), uploadImage);
+  app.post('/api/uploads', upload.single('myFile'), uploadImage);
 
   function findWidgetById(req, res) {
     const widgetId = req.params.widgetId;
@@ -51,25 +56,12 @@ module.exports=function (app) {
 
     for (const i in widgets) {
       if (widgets[i].widgetId === widgetId) {
-       switch (widgets[i].widgetType) {
-         case 'HEADER':
-           widgets[i].text = widget.text;
-           widgets[i].size = widget.size;
-           break;
-
-         case 'YOUTUBE':
-           widgets[i].text = widget.text;
-           widgets[i].url = widget.url;
-           widgets[i].width = widget.width;
-           break;
-
-         case 'IMAGE':
-           widgets[i].text = widget.text;
-           widgets[i].url = widget.url;
-           widgets[i].width = widget.width;
-           break;
-       }
-       res.status(200).send(widgets[i]);
+        widgets[i].text = widget.text;
+        widgets[i].size = widget.size;
+        widgets[i].url = widget.url;
+        widgets[i].width = widget.width;
+        res.status(200).send(widgets[i]);
+        return;
       }
     }
     res.status(404).send('Not Found the Widgets')
@@ -107,37 +99,28 @@ module.exports=function (app) {
   }
 
   function uploadImage(req, res) {
-    var userId = req.body.userId;
-    var websiteId = req.body.websiteId;
-    var pageId = req.body.pageId;
 
     var widgetId = req.body.widgetId;
-    var width = req.body.width;
     var myFile = req.file;
 
-    if (myFile === undefined) {
+    if (myFile == null) {
       res.status(200).send('no file');
       return;
     }
 
-    var filename      = myFile.filename;     // new file name in upload folder
-    var path          = myFile.path;         // full path of uploaded file
-    var destination   = myFile.destination;  // folder where file is saved to
-    var size          = myFile.size;
-    var mimetype      = myFile.mimetype;
+    var filename = myFile.filename;     // new file name in upload folder
 
 
-    var widget = { url: "../../src/assets/uploads/"+filename};
 
     for (let i = 0; i < widgets.length; i++) {
-      if (widgets[i]._id === widgetId) {
-        widget = widgets[i];
+      if (widgets[i].widgetId === widgetId) {
+        widgets[i].url = 'assets/uploads/' + filename;
+        res.status(200).send({message: 'file uploaded'});
+        return;
       }
     }
-    widget.url = '../../src/assets/uploads' + filename;
-
-    res.status(200);
   }
+
 
   function array_swap(arr, old_index, new_index) {
     while (old_index < 0) {
@@ -153,7 +136,6 @@ module.exports=function (app) {
       }
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-  };
-
+  }
 
 };

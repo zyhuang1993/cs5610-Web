@@ -41,4 +41,8 @@ export class WidgetService {
     return this.http.get(url);
   }
 
+  uploadImage(file: any) {
+    return this.http.post(this.baseurl + '/api/uploads', file);
+  }
+
 }

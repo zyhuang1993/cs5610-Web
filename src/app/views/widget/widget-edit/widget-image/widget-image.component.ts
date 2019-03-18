@@ -19,6 +19,7 @@ export class WidgetImageComponent implements OnInit {
   widget: Widget;
   isNewWidget: boolean;
   baseUrl: string;
+  file: File;
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.widget = new Widget(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
     this.baseUrl = environment.baseUrl;
@@ -78,6 +79,28 @@ export class WidgetImageComponent implements OnInit {
 
   backToWidgets() {
     this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
+  }
+
+  upload() {
+    if (this.file === undefined) {
+      alert('no file');
+    } else {
+      const data = new FormData();
+      data.append('myFile', this.file);
+      data.append('widgetId', this.widgetId);
+      this.widgetService.uploadImage(data).subscribe((mes: any) => {
+        this.backToWidgets();
+        if (mes.message === 'file uploaded') {
+          alert('File Uploaded');
+        } else {
+          alert('No file uploaded');
+        }
+      });
+    }
+  }
+
+  onFileChanged(event) {
+    this.file = event.target.files[0];
   }
 
 }
