@@ -11,7 +11,7 @@ module.exports=function (app) {
 
   var multer = require('multer');
   var storage = multer.diskStorage({
-    destination: __dirname + '/../../src/assets/uploads',
+    destination: __dirname + '/../../dist/myWeb5610/assets/uploads',
     filename(req, file, callback) {
       callback(null, file.originalname)
     }
