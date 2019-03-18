@@ -77,6 +77,7 @@ module.exports=function (app) {
       }
     }
     res.json(widgets);
+
   }
 
   function getWidgetsForPage(pageId) {
