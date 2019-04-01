@@ -29,7 +29,9 @@ app.use(function(req, res, next) {
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const db = mongoose.connect('mongodb://localhost:27017/webdev', {useNewUrlParser: true});
+const dbuser = 'ziyanhuang1993';
+const dbpassword = 'Hzy930320!';
+const db = mongoose.connect(`mongodb://${dbuser}:${dbpassword}@ds113855.mlab.com:13855/heroku_qzz329nw`, {useNewUrlParser: true});
 
 
 
