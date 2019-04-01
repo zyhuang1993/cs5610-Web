@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  /*baseUrl: 'http://localhost:3200'*/
-  baseUrl: 'https://webdev-ziyan.herokuapp.com'
+  baseUrl: 'http://localhost:3200'
 };
 
 /*
