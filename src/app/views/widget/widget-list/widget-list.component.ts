@@ -15,12 +15,10 @@ export class WidgetListComponent implements OnInit {
   userId: string;
   websiteId: string;
   pageId: string;
-  page: Page;
   widgets: Widget[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router,
               private domSanitizer: DomSanitizer, private pageService: PageService) {
-    this.page = new Page(undefined, undefined, undefined);
   }
 
   ngOnInit() {
@@ -29,7 +27,6 @@ export class WidgetListComponent implements OnInit {
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.pageService.findPageById(this.pageId).subscribe((page) => {
-        this.page = page;
         this.widgets = page.widgets;
         console.log(this.widgets);
       });
