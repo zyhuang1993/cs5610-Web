@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Page} from '../../../models/page.model.client';
 import {PageService} from '../../../services/page.service.client';
+import {WebsiteService} from '../../../services/website.service.client';
 
 @Component({
   selector: 'app-page-new',
@@ -14,7 +15,8 @@ export class PageNewComponent implements OnInit {
   pages: Page[] = [];
   newPage: Page;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private pageService: PageService) {
+  constructor(private webService: WebsiteService, private router: Router, private activatedRoute: ActivatedRoute,
+              private pageService: PageService) {
     this.newPage = new Page( undefined, undefined, undefined);
   }
 
@@ -22,8 +24,8 @@ export class PageNewComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
-      this.pageService.findPagesByWebsiteId(this.websiteId).subscribe((data: Page[]) => {
-        this.pages = data;
+      this.webService.findWebsiteById(this.websiteId).subscribe((website) => {
+        this.pages = website.pages;
       });
     });
   }

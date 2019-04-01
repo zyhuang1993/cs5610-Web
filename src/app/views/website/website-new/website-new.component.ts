@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Website} from '../../../models/website.model.client';
 import {WebsiteService} from '../../../services/website.service.client';
+import {UserService} from '../../../services/user.service.client';
 
 @Component({
   selector: 'app-website-new',
@@ -14,7 +15,8 @@ export class WebsiteNewComponent implements OnInit {
   website: Website;
   websites: Website[] = [];
 
-  constructor(private router: Router, private websiteService: WebsiteService, private activatedRouter: ActivatedRoute) {
+  constructor(private userService: UserService, private router: Router, private websiteService: WebsiteService,
+              private activatedRouter: ActivatedRoute) {
     this.website = new Website( undefined, undefined, undefined);
   }
 
@@ -33,8 +35,8 @@ export class WebsiteNewComponent implements OnInit {
   ngOnInit() {
     this.activatedRouter.params.subscribe(params => {
       this.userId = params.userId;
-      this.websiteService.findWebsitesByUser(this.userId).subscribe((data) => {
-        this.websites = data;
+      this.userService.findUserById(this.userId).subscribe((user) => {
+        this.websites = user.websites;
       });
     });
   }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Website} from '../../../models/website.model.client';
 import {WebsiteService} from '../../../services/website.service.client';
+import {User} from '../../../models/user.model.client';
+import {UserService} from '../../../services/user.service.client';
 
 @Component({
   selector: 'app-website-edit',
@@ -14,7 +16,8 @@ export class WebsiteEditComponent implements OnInit {
   curWebsite: Website;
   websites: Website[] = [];
 
-  constructor(private activatedRouter: ActivatedRoute, private websiteService: WebsiteService, private router: Router) {
+  constructor(private userService: UserService, private activatedRouter: ActivatedRoute,
+              private websiteService: WebsiteService, private router: Router) {
     this.curWebsite = new Website( undefined, undefined, undefined);
   }
 
@@ -22,8 +25,8 @@ export class WebsiteEditComponent implements OnInit {
     this.activatedRouter.params.subscribe(params => {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
-      this.websiteService.findWebsitesByUser(this.userId).subscribe((data: Website[]) => {
-        this.websites = data;
+      this.userService.findUserById(this.userId).subscribe((user) => {
+        this.websites = user.websites;
       });
       this.websiteService.findWebsiteById(this.websiteId).subscribe((data: Website) => {
         this.curWebsite = data;
