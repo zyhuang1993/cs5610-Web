@@ -5,7 +5,7 @@
         <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="navbar-link">
           <span class="nav-black-icon fas fa-chevron-left fontawsome_icon top-left"></span>
         </a>
-        <a class="navbar-black-brand" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}">
+        <a class="navbar-black-brand" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}/image">
           Edit Widget
         </a>
       </p>
@@ -33,6 +33,9 @@
     <input style="display: none" type="file" class="form-control" (change)="onFileChanged($event)" #fileInput/>
   <button *ngIf="!isNewWidget" (click)="fileInput.click()" class="btn btn-block btn-primary">Select Image</button>
     <button *ngIf="!isNewWidget" (click)="upload()" class="btn btn-block btn-primary">Upload</button>
+
+  <a *ngIf="!isNewWidget" class="btn btn-primary btn-block "
+     routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}/image/flickr" >Choose From Flickr</a>
 
   <a *ngIf ="!isNewWidget" class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
   <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="btn btn-success btn-block">Cancel</a>

@@ -17,6 +17,9 @@ import {WidgetChooserComponent} from './views/widget/widget-chooser/widget-choos
 import {WidgetYoutubeComponent} from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
 import {WidgetHeaderComponent} from './views/widget/widget-edit/widget-header/widget-header.component';
 import {WidgetImageComponent} from './views/widget/widget-edit/widget-image/widget-image.component';
+import {WidgetTextComponent} from './views/widget/widget-edit/widget-text/widget-text.component';
+import {WidgetHtmlComponent} from './views/widget/widget-edit/widget-html/widget-html.component';
+import {FlickrImageSearchComponent} from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -34,9 +37,14 @@ const appRoutes: Routes = [
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/youtube', component: WidgetYoutubeComponent},
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/header', component: WidgetHeaderComponent},
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/image', component: WidgetImageComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/text', component: WidgetTextComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/html', component: WidgetHtmlComponent},
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/youtube', component: WidgetYoutubeComponent},
   { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/header', component: WidgetHeaderComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/image', component: WidgetImageComponent}
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/image', component: WidgetImageComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/text', component: WidgetTextComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/html', component: WidgetHtmlComponent},
+  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/image/flickr', component: FlickrImageSearchComponent}
 ];
 
 @NgModule({

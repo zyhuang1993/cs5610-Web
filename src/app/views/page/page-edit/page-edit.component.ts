@@ -17,7 +17,7 @@ export class PageEditComponent implements OnInit {
   pages: Page[] = [];
 
   constructor(private pageService: PageService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.curPage = new Page(undefined, undefined, undefined, undefined);
+    this.curPage = new Page( undefined, undefined, undefined);
   }
 
   ngOnInit() {

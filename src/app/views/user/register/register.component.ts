@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) {
     this.title = 'Register';
     this.errorFlag = false;
-    this.user = new User(undefined, undefined, undefined, undefined, undefined);
+    this.user = new User( undefined, undefined, undefined, undefined);
   }
 
   register() {
@@ -28,10 +28,9 @@ export class RegisterComponent implements OnInit {
     } else {
       if (this.vpassword === this.user.password) {
         this.errorFlag = false;
-        const registeredUser: User = new User(undefined, this.user.username, this.user.password, this.user.firstName, this.user.lastName);
-        this.userService.createUser(registeredUser).subscribe((data: User) => {
-          this.user.userId = data.userId;
-          this.router.navigate(['user', this.user.userId]);
+        const registeredUser: User = new User(this.user.username, this.user.password, this.user.firstName, this.user.lastName);
+        this.userService.createUser(registeredUser).subscribe((data) => {
+          this.router.navigate(['user', data._id]);
         });
       } else {
         this.errorFlag = true;

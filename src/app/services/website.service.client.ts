@@ -11,29 +11,29 @@ export class WebsiteService {
   constructor(private http: HttpClient) {}
   baseUrl = environment.baseUrl;
 
-  createWebsite(userId, website): Observable<Website> {
+  createWebsite(userId, website): Observable<any> {
     const url = this.baseUrl + '/api/user/' + userId + '/website';
-    return this.http.post<Website>(url, website);
+    return this.http.post<any>(url, website);
   }
 
-  findWebsitesByUser(userId: string): Observable<Website[]> {
+  findWebsitesByUser(userId: string): Observable<any[]> {
     const url = this.baseUrl + '/api/user/' + userId + '/website';
-    return this.http.get<Website[]>(url);
+    return this.http.get<any[]>(url);
   }
 
-  findWebsiteById(websiteId): Observable<Website> {
+  findWebsiteById(websiteId): Observable<any> {
     const url = this.baseUrl + '/api/website/' + websiteId;
-    return this.http.get<Website>(url);
+    return this.http.get<any>(url);
   }
 
-  updateWebsite(websiteId, website): Observable<Website> {
+  updateWebsite(websiteId, website): Observable<any> {
     const url = this.baseUrl + '/api/website/' + websiteId;
-    return this.http.put<Website>(url, website);
+    return this.http.put<any>(url, website);
   }
 
-  deleteWebsite(websiteId): Observable<Website[]> {
+  deleteWebsite(websiteId): Observable<any> {
     const url = this.baseUrl + '/api/website/' + websiteId;
-    return this.http.delete<Website[]>(url);
+    return this.http.delete<any>(url);
   }
 
 

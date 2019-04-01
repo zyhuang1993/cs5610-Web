@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Widget} from '../../../models/widget.model.client';
 import {WidgetService} from '../../../services/widget.service.client';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {Page} from '../../../models/page.model.client';
+import {PageService} from '../../../services/page.service.client';
 
 @Component({
   selector: 'app-widget-list',
@@ -13,33 +15,40 @@ export class WidgetListComponent implements OnInit {
   userId: string;
   websiteId: string;
   pageId: string;
-
+  page: Page;
   widgets: Widget[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router,
-              private domSanitizer: DomSanitizer) { }
+              private domSanitizer: DomSanitizer, private pageService: PageService) {
+    this.page = new Page(undefined, undefined, undefined);
+  }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
-      this.widgetService.findWidgetsByPageId(this.pageId).subscribe((data: Widget[]) => {
-        this.widgets = data;
+      this.pageService.findPageById(this.pageId).subscribe((page) => {
+        this.page = page;
+        this.widgets = page.widgets;
+        console.log(this.widgets);
       });
     });
   }
+      /*this.widgetService.findWidgetsByPageId(this.pageId).subscribe((data) => {
+        console.log(data);
+        this.widgets = data;
+      });
+    });
+  }*/
 
 
   checkUrl(url: string) {
-    const safeUrl: SafeResourceUrl =
-      this.domSanitizer.bypassSecurityTrustResourceUrl(url);
-    return safeUrl;
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
    reorderWidgets(indexes) {
     this.widgetService.reorderWidgets(indexes.startIndex, indexes.endIndex, this.pageId).subscribe((data) => {
-      console.log(data);
     });
    }
 

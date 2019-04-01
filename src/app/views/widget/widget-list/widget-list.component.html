@@ -20,10 +20,10 @@
 <div class="container">
   <div appSortable (newIndexes)="reorderWidgets($event)">
     <div *ngFor="let widget of widgets" class="text-padding-top">
-      <div [ngSwitch]="widget.widgetType">
+      <div [ngSwitch]="widget.type">
         <div *ngSwitchCase="'HEADER'">
           <div class="text-padding-top">
-              <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}/header">
+              <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}/header">
                 <span class="fas fa-cog fontawsome_icon"></span>
               </a>
             <h1 [style.font-size]="widget.size+ 'px'">
@@ -32,10 +32,21 @@
           </div>
         </div>
 
+        <div *ngSwitchCase="'HTML'">
+          <div class="text-padding-top">
+            <div class="text-padding-top">
+              <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}/html">
+                <span class="fas fa-cog fontawsome_icon"></span>
+              </a>
+            <div [innerHTML]="widget.text"></div>
+            </div>
+          </div>
+        </div>
+
         <div *ngSwitchCase="'IMAGE'">
             <div class="text-padding-top">
               <div class="text-padding-top">
-                <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}/image">
+                <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}/image">
                   <span class="fas fa-cog fontawsome_icon"></span>
                 </a>
               </div>
@@ -43,12 +54,25 @@
             </div>
         </div>
 
-        <div *ngSwitchCase="'YOUTUBE'">
+        <div *ngSwitchCase="'TEXT'">
+          <div class="text-padding-top">
+            <div class="text-padding-top">
+              <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}/text">
+                <span class="fas fa-cog fontawsome_icon"></span>
+              </a>
+              <div *ngIf="widget.formatted"> <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor> </div>
+              <input *ngIf="!widget.formatted && (!widget.rows || widget.rows===1)" placeholder="{{widget.placeholder}}" class="form-control"/>
+              <textarea *ngIf="!widget.formatted && (widget.rows > 1)" rows="{{widget.rows}}" placeholder="{{widget.placeholder}}" class="form-control">{{widget.text}}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'YOUTUBE'" class="youtube-widget">
           <div class="text-padding-top">
             <div class="embed-responsive embed-responsive-16by9 text-padding-top">
               <iframe width="640" height="360" [src]="checkUrl(widget.url)" frameborder="0" allowfullscreen [style.width]="widget.width">
               </iframe>
-              <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget.widgetId}}/youtube">
+              <a class="float-right" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widget._id}}/youtube">
                 <span class="fas fa-cog fontawsome_icon"></span>
               </a>
             </div>

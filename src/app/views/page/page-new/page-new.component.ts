@@ -15,7 +15,7 @@ export class PageNewComponent implements OnInit {
   newPage: Page;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private pageService: PageService) {
-    this.newPage = new Page(undefined, undefined, undefined, undefined);
+    this.newPage = new Page( undefined, undefined, undefined);
   }
 
   ngOnInit() {

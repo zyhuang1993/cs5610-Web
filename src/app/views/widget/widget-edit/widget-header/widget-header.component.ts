@@ -17,7 +17,8 @@ export class WidgetHeaderComponent implements OnInit {
   widget: Widget;
 
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.widget = new Widget(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+    this.widget = new Widget( 'HEADER', undefined, undefined, undefined, undefined, undefined,
+      undefined, undefined, undefined, undefined);
   }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class WidgetHeaderComponent implements OnInit {
     if (!this.widget.text || !this.widget.size) {
       alert('Please enter text and size.');
     } else {
-      this.widgetService.createWidget(this.pageId, this.widget).subscribe((data: Widget) => {
+      this.widgetService.createWidget(this.pageId, this.widget).subscribe((data) => {
         this.widget = data;
         this.backToWidgets();
       });

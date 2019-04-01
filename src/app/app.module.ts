@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {QuillEditorModule} from 'ngx-quill-editor';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app-routing.module';
@@ -26,6 +27,10 @@ import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
 import { SortableDirective } from './directives/sortable.directive';
+import { FlickrImageSearchComponent } from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import {FlickrService} from './services/flickr.service.client';
+import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
+import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widget-html.component';
 
 @NgModule({
   declarations: [
@@ -46,14 +51,18 @@ import { SortableDirective } from './directives/sortable.directive';
     WidgetImageComponent,
     WidgetYoutubeComponent,
     SortableDirective,
+    FlickrImageSearchComponent,
+    WidgetTextComponent,
+    WidgetHtmlComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    QuillEditorModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

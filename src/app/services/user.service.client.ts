@@ -16,19 +16,19 @@ export class UserService {
     return this.http.post(url, user);
   }
 
-  findUserById(userId: string): Observable<User> {
+  findUserById(userId: string): Observable<any> {
     const url = this.baseUrl + '/api/user/' + userId;
-    return this.http.get<User>(url);
+    return this.http.get<any>(url);
   }
 
 
-  findUserByCredentials(username: string, password: string): Observable<User> {
+  findUserByCredentials(username: string, password: string): Observable<any> {
     const params = new HttpParams({
       fromString: `username=${username}&password=${password}`
     });
     const url = this.baseUrl + '/api/user';
 
-    return this.http.get<User>(url, {params});
+    return this.http.get<any>(url, {params});
   }
 
   updateUser(userId, user): Observable<any> {

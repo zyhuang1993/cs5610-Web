@@ -18,7 +18,8 @@ export class WidgetYoutubeComponent implements OnInit {
   isNewWidget: boolean;
 
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.widget = new Widget(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+    this.widget = new Widget( 'YOUTUBE', undefined, undefined, undefined, undefined, undefined, undefined,
+      undefined, undefined, undefined);
   }
 
   ngOnInit() {

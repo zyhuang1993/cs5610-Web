@@ -15,7 +15,7 @@ export class WebsiteEditComponent implements OnInit {
   websites: Website[] = [];
 
   constructor(private activatedRouter: ActivatedRoute, private websiteService: WebsiteService, private router: Router) {
-    this.curWebsite = new Website(undefined, undefined, undefined, undefined);
+    this.curWebsite = new Website( undefined, undefined, undefined);
   }
 
   ngOnInit() {

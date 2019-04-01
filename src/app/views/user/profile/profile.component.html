@@ -1,7 +1,7 @@
 <header>
 <nav class="navbar fixed-top background-blue">
   <div class="container-fluid">
-  <a class="navbar-brand" routerLink="/user/{{user.userId}}">
+  <a class="navbar-brand" routerLink="/user/{{user._id}}">
     {{user.username}}'s {{title}}
   </a>
   <a (click)="updateUser()" class="nav-icon navbar-link navbar-text float-right text-white check-icon">
@@ -29,13 +29,13 @@
       <input id="last-name" class="form-control" type="text" placeholder="change your last name" [(ngModel)]="user.lastName"/>
     </div>
 
-    <a routerLink="/user/{{user.userId}}/website" class="btn btn-primary btn-block">Websites</a>
+    <a routerLink="/user/{{user._id}}/website" class="btn btn-primary btn-block">Websites</a>
     <a class="btn btn-danger btn-block" routerLink="/login">Logout</a>
 </div>
 </main>
 <footer>
 <nav class="navbar fixed-bottom background-blue">
-  <a class="navbar-brand" id="hide" routerLink="/user/{{user.userId}}">Profile</a>
+  <a class="navbar-brand" id="hide" routerLink="/user/{{user._id}}">Profile</a>
 </nav>
 </footer>
 

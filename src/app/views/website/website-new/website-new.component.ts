@@ -15,15 +15,15 @@ export class WebsiteNewComponent implements OnInit {
   websites: Website[] = [];
 
   constructor(private router: Router, private websiteService: WebsiteService, private activatedRouter: ActivatedRoute) {
-    this.website = new Website(undefined, undefined, undefined, undefined);
+    this.website = new Website( undefined, undefined, undefined);
   }
 
   createNewWeb() {
     if (!this.website.name || !this.website.description) {
       alert('Please enter the name or description');
     } else {
-      this.websiteService.createWebsite(this.userId, new Website(undefined, this.website.name, undefined, this.website.description))
-        .subscribe((data: Website) => {
+      this.websiteService.createWebsite(this.userId, new Website(this.website.name, undefined, this.website.description))
+        .subscribe((data) => {
           this.website = data;
           this.router.navigate(['user/' + this.userId + '/website']);
         });
@@ -33,7 +33,7 @@ export class WebsiteNewComponent implements OnInit {
   ngOnInit() {
     this.activatedRouter.params.subscribe(params => {
       this.userId = params.userId;
-      this.websiteService.findWebsitesByUser(this.userId).subscribe((data: Website[]) => {
+      this.websiteService.findWebsitesByUser(this.userId).subscribe((data) => {
         this.websites = data;
       });
     });

@@ -5,11 +5,12 @@
         <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="navbar-link">
           <span class="nav-black-icon fas fa-chevron-left fontawsome_icon top-left"></span>
         </a>
-        <a class="navbar-black-brand" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}">
+        <a class="navbar-black-brand" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}/youtube">
           Edit Widget
         </a>
       </p>
-      <a (click)="widgetOperation()" class="navbar-link navbar-text float-right check-icon"><span class="nav-black-icon fas fa-check fontawsome_icon top-right">
+      <a (click)="widgetOperation()" class="navbar-link navbar-text float-right check-icon">
+        <span class="nav-black-icon fas fa-check fontawsome_icon top-right">
         </span>
       </a>
     </div>
@@ -19,7 +20,7 @@
 <div class="container">
     <div class="form-group text-padding-top">
       <label for="youtube-name" class="text-bold">Text</label>
-      <input id="youtube-name" type="text" class="form-control" placeholder="Name123123" [(ngModel)]="widget.text"/>
+      <input id="youtube-name" type="text" class="form-control" placeholder="Name" [(ngModel)]="widget.text"/>
     </div>
     <div class="form-group">
       <label for="youtube-url" class="text-bold">URL</label>

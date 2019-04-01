@@ -9,35 +9,35 @@ export class WidgetService {
   constructor(private http: HttpClient) {}
   baseurl = environment.baseUrl;
 
-  createWidget(pageId, widget): Observable<Widget> {
+  createWidget(pageId, widget): Observable<any> {
     const url = this.baseurl + '/api/page/' + pageId + '/widget';
     return this.http.post<Widget>(url, widget);
   }
 
-  findWidgetsByPageId(pageId): Observable<Widget[]> {
+  findWidgetsByPageId(pageId): Observable<any[]> {
     const url = this.baseurl + '/api/page/' + pageId + '/widget';
-    return this.http.get<Widget[]>(url);
+    return this.http.get<any[]>(url);
   }
 
-  findWidgetById(widgetId): Observable<Widget> {
+  findWidgetById(widgetId): Observable<any> {
     const url = this.baseurl + '/api/widget/' + widgetId;
-    return this.http.get<Widget>(url);
+    return this.http.get<any>(url);
 
   }
 
-  updateWidget(widgetId, widget): Observable<Widget> {
+  updateWidget(widgetId, widget): Observable<any> {
     const url = this.baseurl + '/api/widget/' + widgetId;
-    return this.http.put<Widget>(url, widget);
+    return this.http.put<any>(url, widget);
   }
 
-  deleteWidget(widgetId): Observable<Widget[]> {
+  deleteWidget(widgetId): Observable<any> {
     const url = this.baseurl + '/api/widget/' + widgetId;
-    return this.http.delete<Widget[]>(url);
+    return this.http.delete<any>(url);
   }
 
   reorderWidgets(startIndex, endIndex, pageId) {
 
-    const url = this.baseurl + '/api/page/' + pageId + '/widget?start=' + startIndex + '&end=' + endIndex;
+    const url = this.baseurl + '/api/page/' + pageId + '/widget/reorder?start=' + startIndex + '&end=' + endIndex;
     return this.http.get(url);
   }
 

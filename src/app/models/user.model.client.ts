@@ -1,12 +1,13 @@
+import {Website} from './website.model.client';
+
 export class User {
-  userId: string;
+  _id: string;
   username: string;
   password: string;
   firstName: string;
   lastName: string;
 
-  constructor(userId, username, password, firstName, lastName) {
-    this.userId = userId;
+  constructor(username, password, firstName, lastName) {
     this.username = username;
     this.password = password;
     this.firstName = firstName;

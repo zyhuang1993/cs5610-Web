@@ -27,6 +27,12 @@ app.use(function(req, res, next) {
   next();
 });
 
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const db = mongoose.connect('mongodb://localhost:27017/webdev', {useNewUrlParser: true});
+
+
+
 const port = process.env.PORT || '3200';
 app.set('port', port);
 require('./server_services/app')(app);

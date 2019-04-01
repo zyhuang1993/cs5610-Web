@@ -1,13 +1,5 @@
 
 module.exports=function (app) {
-  var widgets = [
-    { widgetId: '123', widgetType: 'HEADER', pageId: '345', size: 20,
-      text: 'London terror attack: Police fired \'unprecedented\' number of rounds', width: undefined, url: undefined},
-    { widgetId: '234', widgetType: 'IMAGE', pageId: '345', size: undefined, text: 'Image', width: '100%',
-      url: 'http://i2.cdn.cnn.com/cnnnext/dam/assets/170604130220-41-london-bridge-incident-0604-gallery-exlarge-169.jpg'},
-    { widgetId: '345', widgetType: 'YOUTUBE', pageId: '345', size: undefined, text: 'Myvideo', width: '90%',
-      url: 'https://www.youtube.com/embed/ZwKhufmMxko'},
-  ];
 
   var multer = require('multer');
   var storage = multer.diskStorage({
@@ -18,86 +10,84 @@ module.exports=function (app) {
   });
   var upload = multer({storage: storage});
 
+  var pageModel = require('../model/page/page.model.server');
+  var widgetModel = require('../model/widget/widget.model.server');
   app.get('/api/widget/:widgetId', findWidgetById);
   app.get('/api/page/:pageId/widget', findAllWidgetsByPage);
   app.post('/api/page/:pageId/widget', createWidget);
   app.put('/api/widget/:widgetId', updateWidget);
   app.delete('/api/widget/:widgetId', deleteWidget);
 
-  app.get('/api/page/:pageId/widget', reorderWidgets);
+  app.get('/api/page/:pageId/widget/reorder', reorderWidgets);
 
   app.post('/api/uploads', upload.single('myFile'), uploadImage);
 
   function findWidgetById(req, res) {
     const widgetId = req.params.widgetId;
-    const widget = widgets.find((widget) => {
-      return widget.widgetId === widgetId;
-    });
-    res.json(widget);
+    widgetModel.findWidgetById(widgetId)
+      .then((widget) => {
+        res.json(widget);
+      }, (err) => {
+        res.status(404).send(err);
+      });
   }
 
   function createWidget(req, res) {
     const pageId = req.params.pageId;
     const widget = req.body;
-    widget.widgetId = randomId();
     widget.pageId = pageId;
-    widgets.push(widget);
-    res.json(widget);
+    widgetModel.createWidget(pageId, widget)
+      .then((widget) => {
+        res.json(widget);
+          }, (err) => {
+        res.status(404).send(err);
+      });
   }
 
   function findAllWidgetsByPage(req, res) {
     const pageId = req.params.pageId;
-    res.json(getWidgetsForPage(pageId));
+    widgetModel.findAllWidgetsForPage(pageId)
+      .then((widgets) => {
+        res.json(widgets);
+      }, (err) => {
+        res.status(404).send(err);
+      });
   }
 
   function updateWidget(req, res) {
     const widgetId = req.params.widgetId;
     const widget = req.body;
-
-    for (const i in widgets) {
-      if (widgets[i].widgetId === widgetId) {
-        widgets[i].text = widget.text;
-        widgets[i].size = widget.size;
-        widgets[i].url = widget.url;
-        widgets[i].width = widget.width;
-        res.status(200).send(widgets[i]);
-        return;
-      }
-    }
-    res.status(404).send('Not Found the Widgets')
+    widgetModel.updateWidget(widgetId, widget)
+      .then((widget) => {
+        res.json(widget);
+      }, (err) => {
+        res.status(404).send(err);
+      });
   }
 
   function deleteWidget(req, res) {
     const widgetId = req.params.widgetId;
-    for (const i in widgets) {
-      if (widgets[i].widgetId === widgetId) {
-        const j = +i;
-        widgets.splice(j, 1);
-        break;
-      }
-    }
-    res.json(widgets);
-
+    widgetModel.deleteWIdget(widgetId)
+      .then((data) => {
+        res.json(data);
+      }, (err) => {
+        res.status(404).send(err);
+      });
   }
 
-  function getWidgetsForPage(pageId) {
-    return widgets.filter((widget) => {
-      return widget.pageId === pageId;
-    })
-  }
 
   function reorderWidgets(req, res) {
+    var pageId = req.params.pageId;
     var startIndex = parseInt(req.query["start"]);
     var endIndex = parseInt(req.query["end"]);
 
-    array_swap(widgets, startIndex, endIndex);
-    res.sendStatus(200);
+    widgetModel.reorderWidget(pageId, startIndex, endIndex).then((data) => {
+      res.json(data);
+    }, (err) => {
+      res.status(400).send(err);
+    });
   }
 
-  function randomId() {
-    const num = Math.floor(Math.random() * 1000) + 1;
-    return num.toString();
-  }
 
   function uploadImage(req, res) {
 

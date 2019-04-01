@@ -21,7 +21,8 @@ export class WidgetImageComponent implements OnInit {
   baseUrl: string;
   file: File;
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.widget = new Widget(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+    this.widget = new Widget( 'IMAGE', undefined, undefined, undefined, undefined, undefined,
+      undefined, undefined, undefined, undefined);
     this.baseUrl = environment.baseUrl;
   }
 

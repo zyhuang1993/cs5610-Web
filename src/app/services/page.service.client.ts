@@ -12,28 +12,28 @@ export class PageService {
 
   baseUrl = environment.baseUrl;
 
-  createPage( websiteId: string, page: Page): Observable<Page> {
+  createPage( websiteId: string, page: Page): Observable<any> {
     const url = this.baseUrl + '/api/website/' + websiteId + '/page';
-    return this.http.post<Page>(url, page);
+    return this.http.post<any>(url, page);
   }
 
-  findPagesByWebsiteId(websiteId): Observable<Page[]> {
+  findPagesByWebsiteId(websiteId): Observable<any[]> {
     const url = this.baseUrl + '/api/website/' + websiteId + '/page';
-    return this.http.get<Page[]>(url);
+    return this.http.get<any[]>(url);
   }
 
-  findPageById(pageId): Observable<Page> {
+  findPageById(pageId): Observable<any> {
     const url = this.baseUrl + '/api/page/' + pageId;
-    return this.http.get<Page>(url);
+    return this.http.get<any>(url);
   }
 
-  updatePage(pageId, page): Observable<Page> {
+  updatePage(pageId, page): Observable<any> {
     const url = this.baseUrl + '/api/page/' + pageId;
-    return this.http.put<Page>(url, page);
+    return this.http.put<any>(url, page);
   }
 
-  deletePage(pageId): Observable<Page[]> {
+  deletePage(pageId): Observable<any> {
     const url = this.baseUrl + '/api/page/' + pageId;
-    return this.http.delete<Page[]>(url);
+    return this.http.delete<any>(url);
   }
 }
