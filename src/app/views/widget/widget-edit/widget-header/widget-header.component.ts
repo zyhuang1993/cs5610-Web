@@ -9,12 +9,13 @@ import {Widget} from '../../../../models/widget.model.client';
   styleUrls: ['./widget-header.component.css']
 })
 export class WidgetHeaderComponent implements OnInit {
-  userId: string;
   websiteId: string;
   pageId: string;
   widgetId: string;
   isNewWidget: boolean;
   widget: Widget;
+  errorFlag: boolean;
+  errorMsg = 'Please enter the name.';
 
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.widget = new Widget( 'HEADER', undefined, undefined, undefined, undefined, undefined,
@@ -23,7 +24,6 @@ export class WidgetHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.widgetId = params.widgetId;
@@ -47,9 +47,10 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   private createNewWidget() {
-    if (!this.widget.text || !this.widget.size) {
-      alert('Please enter text and size.');
+    if (this.widget.name === undefined || this.widget.name === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.createWidget(this.pageId, this.widget).subscribe((data) => {
         this.widget = data;
         this.backToWidgets();
@@ -58,9 +59,10 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   private updateCurWidget() {
-    if (!this.widget.text || !this.widget.size) {
-      alert('Please enter text and size.');
+    if (this.widget.name === '' || this.widget.name === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.updateWidget(this.widgetId, this.widget).subscribe((data: Widget) => {
         this.widget = data;
         this.backToWidgets();
@@ -75,7 +77,7 @@ export class WidgetHeaderComponent implements OnInit {
   }
 
   backToWidgets() {
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
+    this.router.navigate(['/profile/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
   }
 
 

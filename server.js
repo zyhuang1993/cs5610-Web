@@ -3,7 +3,11 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
-// const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
+var flash = require('connect-flash');
+
 
 const bodyParser = require('body-parser');
 const app = express();
@@ -12,6 +16,12 @@ const app = express();
   credentials: true,
   origin: '*'
 }));*/
+app.use(flash());
+app.use(cookieParser());
+app.use(session({secret: process.env.SESSION_SECRET? process.env.SESSION_SECRET : 'webdec'}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,7 +40,7 @@ app.use(function(req, res, next) {
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const db = mongoose.connect('mongodb://heroku_9vhc3k03:a50c03ees3p21dbka92qjpc7ug@ds031541.mlab.com:31541/heroku_9vhc3k03', {useNewUrlParser: true});
-
+//const db = mongoose.connect('mongodb://localhost:27017/webdev', {useNewUrlParser: true});
 
 
 const port = process.env.PORT || '3200';

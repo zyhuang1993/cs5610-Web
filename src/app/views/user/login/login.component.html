@@ -12,6 +12,7 @@
       <input type="password" class="form-control" placeholder="password" name="password"
              ngModel required #password="ngModel"/>
       <button class="button-div btn btn-primary btn-block" type="submit" [disabled]="!f.valid">Login</button>
+      <a href="/facebook/login" class="btn btn-primary btn-block"><span class="fab fa-facebook-square">Log in With Facebook</span></a>
       <a routerLink="/register" class="button-div btn btn-success btn-block">Register</a>
     </form>
   </div>

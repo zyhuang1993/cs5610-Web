@@ -2,7 +2,7 @@
 <nav class="navbar fixed-top background-blue">
   <div class="container-fluid">
   <a class="navbar-brand" routerLink="/user/{{user._id}}">
-    {{user.username}}'s {{title}}
+    {{title}}
   </a>
   <a (click)="updateUser()" class="nav-icon navbar-link navbar-text float-right text-white check-icon">
     <span class="fas fa-check fontawsome_icon top-right"></span>
@@ -29,8 +29,8 @@
       <input id="last-name" class="form-control" type="text" placeholder="change your last name" [(ngModel)]="user.lastName"/>
     </div>
 
-    <a routerLink="/user/{{user._id}}/website" class="btn btn-primary btn-block">Websites</a>
-    <a class="btn btn-danger btn-block" routerLink="/login">Logout</a>
+    <a routerLink="/profile/website" class="btn btn-primary btn-block">Websites</a>
+    <a class="btn btn-danger btn-block" (click)="logout()">Logout</a>
 </div>
 </main>
 <footer>

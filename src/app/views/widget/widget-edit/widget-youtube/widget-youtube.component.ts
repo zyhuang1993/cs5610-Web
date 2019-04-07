@@ -10,21 +10,20 @@ import {Widget} from '../../../../models/widget.model.client';
 })
 export class WidgetYoutubeComponent implements OnInit {
 
-  userId: string;
   websiteId: string;
+  errorFlag: boolean;
+  errorMsg = 'Please enter the name and url.';
   pageId: string;
   widgetId: string;
   widget: Widget;
   isNewWidget: boolean;
 
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.widget = new Widget( 'YOUTUBE', undefined, undefined, undefined, undefined, undefined, undefined,
-      undefined, undefined, undefined);
+    this.widget = new Widget( 'YOUTUBE', '', '', undefined, undefined, undefined, '', undefined, undefined,  undefined);
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.widgetId = params.widgetId;
@@ -48,9 +47,10 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   private createNewWidget() {
-    if (!this.widget.text || !this.widget.width || !this.widget.url) {
-      alert('Please enter the youtube information.');
+    if (!this.widget.name || !this.widget.url || this.widget.name === '' || this.widget.url === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.createWidget(this.pageId, this.widget).subscribe((data: Widget) => {
         this.widget = data;
         this.backToWidgets();
@@ -59,9 +59,10 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   private updateCurWidget() {
-    if (!this.widget.text || !this.widget.width || !this.widget.url) {
-      alert('Please enter the youtube information.');
+    if (!this.widget.name || !this.widget.url || this.widget.name === '' || this.widget.url === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.updateWidget(this.widgetId, this.widget).subscribe((data: Widget) => {
         this.widget = data;
         this.backToWidgets();
@@ -76,6 +77,6 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   backToWidgets() {
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
+    this.router.navigate(['/profile/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
   }
 }

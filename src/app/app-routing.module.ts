@@ -20,31 +20,32 @@ import {WidgetImageComponent} from './views/widget/widget-edit/widget-image/widg
 import {WidgetTextComponent} from './views/widget/widget-edit/widget-text/widget-text.component';
 import {WidgetHtmlComponent} from './views/widget/widget-edit/widget-html/widget-html.component';
 import {FlickrImageSearchComponent} from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
+import {AuthGuard} from './services/authguard.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'user/:userId', component: ProfileComponent},
-  { path: 'user/:userId/website', component: WebsiteListComponent},
-  { path: 'user/:userId/website/new', component: WebsiteNewComponent},
-  { path: 'user/:userId/website/:websiteId', component: WebsiteEditComponent},
-  { path: 'user/:userId/website/:websiteId/page', component: PageListComponent},
-  { path: 'user/:userId/website/:websiteId/page/new', component: PageNewComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId', component: PageEditComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget', component: WidgetListComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new', component: WidgetChooserComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/youtube', component: WidgetYoutubeComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/header', component: WidgetHeaderComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/image', component: WidgetImageComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/text', component: WidgetTextComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/new/html', component: WidgetHtmlComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/youtube', component: WidgetYoutubeComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/header', component: WidgetHeaderComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/image', component: WidgetImageComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/text', component: WidgetTextComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/html', component: WidgetHtmlComponent},
-  { path: 'user/:userId/website/:websiteId/page/:pageId/widget/:widgetId/image/flickr', component: FlickrImageSearchComponent}
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'profile/website', component: WebsiteListComponent},
+  { path: 'profile/website/new', component: WebsiteNewComponent},
+  { path: 'profile/website/:websiteId', component: WebsiteEditComponent},
+  { path: 'profile/website/:websiteId/page', component: PageListComponent},
+  { path: 'profile/website/:websiteId/page/new', component: PageNewComponent},
+  { path: 'profile/website/:websiteId/page/:pageId', component: PageEditComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget', component: WidgetListComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/new', component: WidgetChooserComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/new/youtube', component: WidgetYoutubeComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/new/header', component: WidgetHeaderComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/new/image', component: WidgetImageComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/new/text', component: WidgetTextComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/new/html', component: WidgetHtmlComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/:widgetId/youtube', component: WidgetYoutubeComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/:widgetId/header', component: WidgetHeaderComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/:widgetId/image', component: WidgetImageComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/:widgetId/text', component: WidgetTextComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/:widgetId/html', component: WidgetHtmlComponent},
+  { path: 'profile/website/:websiteId/page/:pageId/widget/:widgetId/image/flickr', component: FlickrImageSearchComponent}
 ];
 
 @NgModule({

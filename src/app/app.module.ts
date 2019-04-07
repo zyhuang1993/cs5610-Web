@@ -31,6 +31,9 @@ import { FlickrImageSearchComponent } from './views/widget/widget-edit/widget-im
 import {FlickrService} from './services/flickr.service.client';
 import { WidgetTextComponent } from './views/widget/widget-edit/widget-text/widget-text.component';
 import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widget-html.component';
+import {SharedService} from './services/shared.service';
+import {AuthGuard} from './services/authguard.service';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,8 @@ import { WidgetHtmlComponent } from './views/widget/widget-edit/widget-html/widg
     FormsModule,
     QuillEditorModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, FlickrService, SharedService, AuthGuard,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

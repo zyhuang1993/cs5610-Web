@@ -13,26 +13,31 @@ export class RegisterComponent implements OnInit {
   title: string;
   user: User;
   errorFlag: boolean;
-  errorMsg = 'Sorry, passwords mis-matching.';
-  vpassword: string;
+  errorMsg = '';
+  vpassword = '';
 
   constructor(private router: Router, private userService: UserService) {
     this.title = 'Register';
     this.errorFlag = false;
-    this.user = new User( undefined, undefined, undefined, undefined);
+    this.user = new User( '', '', undefined, undefined);
   }
 
   register() {
-    if (!this.user.username || !this.user.password || !this.user.lastName || !this.user.firstName || !this.vpassword) {
-      alert('Please enter your register information');
+    this.errorFlag = this.user.username === '' || this.user.password === '' || this.vpassword === '';
+    if (this.errorFlag) {
+      this.errorMsg = 'Please enter your register information.';
     } else {
       if (this.vpassword === this.user.password) {
         this.errorFlag = false;
-        const registeredUser: User = new User(this.user.username, this.user.password, this.user.firstName, this.user.lastName);
-        this.userService.createUser(registeredUser).subscribe((data) => {
-          this.router.navigate(['user', data._id]);
+        this.userService.register(this.user).subscribe((data: any) => {
+          if (data.message === 'User already exists') {
+            alert('User already exists. Please use another username');
+          } else {
+            this.router.navigate(['profile']);
+          }
         });
       } else {
+        this.errorMsg = 'Sorry, password mist-matching.';
         this.errorFlag = true;
       }
     }

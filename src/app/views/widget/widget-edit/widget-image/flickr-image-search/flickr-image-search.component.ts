@@ -10,7 +10,6 @@ import {Widget} from '../../../../../models/widget.model.client';
   styleUrls: ['./flickr-image-search.component.css']
 })
 export class FlickrImageSearchComponent implements OnInit {
-  userId: string;
   websiteId: string;
   pageId: string;
   widgetId: string;
@@ -28,7 +27,6 @@ export class FlickrImageSearchComponent implements OnInit {
 
   ngOnInit() {
     this.activatedROute.params.subscribe(params => {
-      this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.widgetId = params.widgetId;
@@ -69,7 +67,7 @@ export class FlickrImageSearchComponent implements OnInit {
       .updateWidget(this.widgetId, widget)
       .subscribe(
         (data: any) => {
-          if (data) { this.router.navigate(['/user/' + this.userId + '/website/' + this.websiteId + '/page/' +
+          if (data) { this.router.navigate(['/profile/website/' + this.websiteId + '/page/' +
           this.pageId + '/widget']);
           } else {
             this.errors = 'failed!';

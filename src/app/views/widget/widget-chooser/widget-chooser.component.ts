@@ -8,7 +8,6 @@ import {WidgetService} from '../../../services/widget.service.client';
   styleUrls: ['./widget-chooser.component.css']
 })
 export class WidgetChooserComponent implements OnInit {
-  userId: string;
   websiteId: string;
   pageId: string;
 
@@ -17,7 +16,6 @@ export class WidgetChooserComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
     });

@@ -12,7 +12,6 @@ import {PageService} from '../../../services/page.service.client';
   styleUrls: ['./widget-list.component.css']
 })
 export class WidgetListComponent implements OnInit {
-  userId: string;
   websiteId: string;
   pageId: string;
   widgets: Widget[] = [];
@@ -23,21 +22,14 @@ export class WidgetListComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.pageService.findPageById(this.pageId).subscribe((page) => {
         this.widgets = page.widgets;
-        console.log(this.widgets);
       });
     });
   }
-      /*this.widgetService.findWidgetsByPageId(this.pageId).subscribe((data) => {
-        console.log(data);
-        this.widgets = data;
-      });
-    });
-  }*/
+
 
 
   checkUrl(url: string) {

@@ -10,21 +10,21 @@ import {WebsiteService} from '../../../services/website.service.client';
   styleUrls: ['./page-edit.component.css']
 })
 export class PageEditComponent implements OnInit {
-  userId: string;
   websiteId: string;
   pageId: string;
+  errorFlag: boolean;
+  errorMsg = 'Please enter the name.';
 
   curPage: Page;
   pages: Page[] = [];
 
   constructor(private webService: WebsiteService, private pageService: PageService,
               private router: Router, private activatedRoute: ActivatedRoute) {
-    this.curPage = new Page( undefined, undefined, undefined);
+    this.curPage = new Page('', '', undefined);
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.webService.findWebsiteById(this.websiteId).subscribe((website) => {
@@ -37,9 +37,10 @@ export class PageEditComponent implements OnInit {
   }
 
   updateCurPage() {
-    if (!this.curPage.name || !this.curPage.description) {
-      alert('Please enter the name or description');
+    if (this.curPage.name === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.pageService.updatePage(this.pageId, this.curPage).subscribe((data: Page) => {
         this.curPage = data;
         this.backToPages();
@@ -48,7 +49,7 @@ export class PageEditComponent implements OnInit {
   }
 
   backToPages() {
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page']);
+    this.router.navigate(['/profile/website/' + this.websiteId + '/page']);
   }
 
 

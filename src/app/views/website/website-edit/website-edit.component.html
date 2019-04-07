@@ -3,20 +3,20 @@
   <div class="row row-div">
     <div class="col-sm-4 container-fluid d-none d-sm-block">
       <p class="navbar-text float-left">
-        <a class="navbar-link nav-icon" routerLink="/user/{{userId}}/website">
+        <a class="navbar-link nav-icon" routerLink="/profile/website">
           <span class="fas fa-chevron-left fontawsome_icon top-left"></span>
         </a>
-        <a class="text-white text-bold" routerLink="/user/{{userId}}/website">
+        <a class="text-white text-bold" routerLink="/profile/website">
           Websites
         </a>
       </p>
     </div>
     <div class="col-sm-8 container-fluid">
       <p class="navbar-text float-left">
-        <a routerLink="/user/{{userId}}/website" class="navbar-link text-white d-inline d-sm-none d-md-none d-lg-none">
+        <a routerLink="/profile/website" class="navbar-link text-white d-inline d-sm-none d-md-none d-lg-none">
           <span class="fas fa-chevron-left fontawsome-icon top-left"></span>
         </a>
-        <a class="text-white text-bold" routerLink="/user/{{userId}}/website/{{websiteId}}">
+        <a class="text-white text-bold" routerLink="/profile/website/{{websiteId}}">
           Edit Website
         </a>
       </p>
@@ -34,13 +34,16 @@
     <div class="d-none d-sm-block col-sm-4">
       <ul class="list-group list-borderless">
         <li class="list-group-item list-borderless" *ngFor="let website of websites">
-          <a routerLink="/user/{{userId}}/website/{{website._id}}/page">{{website.name}}</a>
-          <a routerLink="/user/{{userId}}/website/{{website._id}}"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
+          <a routerLink="page">{{website.name}}</a>
+          <a routerLink="/profile/website/{{website._id}}"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
         </li>
       </ul>
     </div>
 
     <div class="col-sm-8 right-content">
+      <div *ngIf="errorFlag" class="alert alert-danger">
+        {{errorMsg}}
+      </div>
         <div class="text-padding-top">
           <label for="website-name" class="text-bold">Website Name</label>
           <input id="website-name" type="text" class="form-control" [placeholder]="curWebsite.name" [(ngModel)]="curWebsite.name"/>
@@ -58,7 +61,7 @@
   <nav class="navbar fixed-bottom background-blue">
     <div class="container-fluid">
       <p class="navbar-text float-left"></p>
-      <a class="nav-icon" routerLink="/user/{{userId}}">
+      <a class="nav-icon" routerLink="/profile">
         <span class="fas fa-user fontawsome-icon bottom-right"></span>
       </a>
     </div>

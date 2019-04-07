@@ -11,24 +11,23 @@ import {environment} from '../../../../../environments/environment';
 })
 export class WidgetImageComponent implements OnInit {
 
-  userId: string;
   websiteId: string;
   pageId: string;
   widgetId: string;
-
+  errorFlag: boolean;
+  errorMsg = 'Please enter the name.';
   widget: Widget;
   isNewWidget: boolean;
   baseUrl: string;
   file: File;
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.widget = new Widget( 'IMAGE', undefined, undefined, undefined, undefined, undefined,
-      undefined, undefined, undefined, undefined);
+    this.widget = new Widget( 'IMAGE', '', '', undefined, undefined, undefined,
+      '', undefined, undefined, undefined);
     this.baseUrl = environment.baseUrl;
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.widgetId = params.widgetId; if (this.widgetId) {
@@ -51,9 +50,10 @@ export class WidgetImageComponent implements OnInit {
   }
 
   private createNewWidget() {
-    if (!this.widget.text || !this.widget.width || !this.widget.url) {
-      alert('Please enter the image information.');
+    if (!this.widget.name || this.widget.name === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.createWidget(this.pageId, this.widget).subscribe((data: Widget) => {
         this.widget = data;
         this.backToWidgets();
@@ -62,9 +62,10 @@ export class WidgetImageComponent implements OnInit {
   }
 
   private updateCurWidget() {
-    if (!this.widget.text || !this.widget.width || !this.widget.url) {
-      alert('Please enter the image information.');
+    if (!this.widget.name || this.widget.name === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.updateWidget(this.widgetId, this.widget).subscribe((data: Widget) => {
         this.widget = data;
         this.backToWidgets();
@@ -79,7 +80,7 @@ export class WidgetImageComponent implements OnInit {
   }
 
   backToWidgets() {
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
+    this.router.navigate(['/profile/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
   }
 
   upload() {

@@ -9,21 +9,21 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./widget-html.component.css']
 })
 export class WidgetHtmlComponent implements OnInit {
-  userId: string;
   websiteId: string;
   pageId: string;
   widgetId: string;
   widget: Widget;
   isNewWidget: boolean;
+  errorFlag: boolean;
+  errorMsg = 'Please enter the name and html text.';
 
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.widget = new Widget( 'HTML', undefined, undefined, undefined, undefined, undefined,
+    this.widget = new Widget( 'HTML', '', undefined, undefined, undefined, undefined,
       undefined, undefined, undefined, undefined);
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.widgetId = params.widgetId;
@@ -47,9 +47,10 @@ export class WidgetHtmlComponent implements OnInit {
   }
 
   private createNewWidget() {
-    if (!this.widget.name || !this.widget.text) {
-      alert('Please enter the html information.');
+    if (!this.widget.name || !this.widget.text || this.widget.name === '' || this.widget.text === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.createWidget(this.pageId, this.widget).subscribe((data: Widget) => {
         this.widget = data;
         this.backToWidgets();
@@ -58,9 +59,10 @@ export class WidgetHtmlComponent implements OnInit {
   }
 
   private updateCurWidget() {
-    if (!this.widget.name || !this.widget.text) {
-      alert('Please enter the html information.');
+    if (!this.widget.name || !this.widget.text || this.widget.name === '' || this.widget.text === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.updateWidget(this.widgetId, this.widget).subscribe((data: Widget) => {
         this.widget = data;
         this.backToWidgets();
@@ -75,7 +77,7 @@ export class WidgetHtmlComponent implements OnInit {
   }
 
   backToWidgets() {
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
+    this.router.navigate(['/profile/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
   }
 
 }

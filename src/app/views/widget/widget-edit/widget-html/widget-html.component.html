@@ -2,10 +2,10 @@
   <nav class="navbar fixed-top">
     <div class="container-fluid">
       <p class="navbar-text float-left">
-        <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="navbar-link">
+        <a routerLink="/profile/website/{{websiteId}}/page/{{pageId}}/widget/" class="navbar-link">
           <span class="nav-black-icon fas fa-chevron-left fontawsome_icon top-left"></span>
         </a>
-        <a class="navbar-black-brand" routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}/html">
+        <a class="navbar-black-brand" routerLink="/profile/website/{{websiteId}}/page/{{pageId}}/widget/{{widgetId}}/html">
           Edit Widget
         </a>
       </p>
@@ -18,6 +18,9 @@
 </header>
 <main>
   <div class="container">
+    <div *ngIf="errorFlag" class="alert alert-danger">
+      {{errorMsg}}
+    </div>
     <div class="form-group text-padding-top">
       <label for="html-name" class="text-bold">Name</label>
       <input id="html-name" type="text" class="form-control" placeholder="Name" [(ngModel)]="widget.name"/>
@@ -27,7 +30,7 @@
       <quill-editor id="text" [(ngModel)]="widget.text"></quill-editor>
     </div>
     <a *ngIf="!isNewWidget" class="btn btn-danger btn-block" (click)="deleteWidget()">Delete</a>
-    <a routerLink="/user/{{userId}}/website/{{websiteId}}/page/{{pageId}}/widget/" class="btn btn-success btn-block">Cancel</a>
+    <a routerLink="/profile/website/{{websiteId}}/page/{{pageId}}/widget/" class="btn btn-success btn-block">Cancel</a>
 
   </div>
 </main>
@@ -35,7 +38,7 @@
   <nav class="navbar fixed-bottom">
     <div class="container-fluid">
       <p class="navbar-text float-left"></p>
-      <a class="nav-black-icon" routerLink="/user/{{userId}}">
+      <a class="nav-black-icon" routerLink="/profile">
         <span class="fas fa-user fontawsome-icon bottom-right"></span>
       </a>
     </div>

@@ -9,21 +9,21 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./widget-text.component.css']
 })
 export class WidgetTextComponent implements OnInit {
-  userId: string;
   websiteId: string;
   pageId: string;
   widgetId: string;
   widget: Widget;
   isNewWidget: boolean;
+  errorFlag; boolean;
+  errorMsg = 'Please enter your text information.';
 
   constructor(private widgetService: WidgetService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.widget = new Widget( 'TEXT', undefined, undefined, undefined, undefined, undefined,
+    this.widget = new Widget( 'TEXT', '', '', undefined, '', undefined,
       undefined, undefined, false, '');
   }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params.userId;
       this.websiteId = params.websiteId;
       this.pageId = params.pageId;
       this.widgetId = params.widgetId;
@@ -47,9 +47,10 @@ export class WidgetTextComponent implements OnInit {
   }
 
   private createNewWidget() {
-    if (!this.widget.name || !this.widget.text || !this.widget.rows) {
-      alert('Please enter the your text information.');
+    if (!this.widget.text || !this.widget.rows || this.widget.text === '' || this.widget.rows === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.createWidget(this.pageId, this.widget).subscribe((data: Widget) => {
         this.widget = data;
         this.backToWidgets();
@@ -58,9 +59,10 @@ export class WidgetTextComponent implements OnInit {
   }
 
   private updateCurWidget() {
-    if (!this.widget.name || !this.widget.text || !this.widget.rows) {
-      alert('Please enter the your text information.');
+    if (!this.widget.text || !this.widget.rows || this.widget.text === '' || this.widget.rows === '') {
+      this.errorFlag = true;
     } else {
+      this.errorFlag = false;
       this.widgetService.updateWidget(this.widgetId, this.widget).subscribe((data: Widget) => {
         this.widget = data;
         this.backToWidgets();
@@ -75,7 +77,7 @@ export class WidgetTextComponent implements OnInit {
   }
 
   backToWidgets() {
-    this.router.navigate(['user/' + this.userId + '/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
+    this.router.navigate(['/profile/website/' + this.websiteId + '/page/' + this.pageId + '/widget']);
   }
 
 }
